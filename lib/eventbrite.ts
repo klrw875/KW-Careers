@@ -2,7 +2,7 @@
 // show on the site without a code change. Needs EVENTBRITE_TOKEN (Eventbrite private token)
 // in Vercel; EVENTBRITE_ORG_ID is optional (looked up from the token if missing).
 // Any failure falls back to the hand-entered events in content/events.ts.
-import { events as manual, upcomingEvents, type SiteEvent } from "@/content/events";
+import { events as manual, hiddenEventbriteTitles, upcomingEvents, type SiteEvent } from "@/content/events";
 
 const API = "https://www.eventbriteapi.com/v3";
 const REVALIDATE = 3600; // seconds: a new Eventbrite event shows within the hour
@@ -31,6 +31,11 @@ async function get<T>(path: string, token: string, f: Fetch): Promise<T> {
   if (!res.ok) throw new Error(`Eventbrite ${path}: ${res.status}`);
   return res.json() as Promise<T>;
 }
+
+const squash = (s: string) => s.toLowerCase().replace(/[^a-z0-9]/g, "");
+/** True for events like PEAK Leadgen that run on Eventbrite but aren't promoted on the site. */
+export const isHidden = (title: string, hidden = hiddenEventbriteTitles) =>
+  hidden.some((h) => squash(title).includes(squash(h)));
 
 /** Eventbrite event id from a public event URL (…-tickets-2003376471957?aff=…). */
 export const eventbriteId = (url?: string) => url?.match(/-(\d{6,})(?:[/?#]|$)/)?.[1];
@@ -70,7 +75,7 @@ export async function fetchEventbriteEvents(token: string, orgId?: string, f: Fe
     f,
   );
   // Unlisted/private events (agent-only trainings) stay off the recruiting site
-  return events.filter((e) => e.listed && e.status === "live").map(fromEventbrite);
+  return events.filter((e) => e.listed && e.status === "live" && !isHidden(e.name.text)).map(fromEventbrite);
 }
 
 /** All upcoming events: hand-entered plus Eventbrite (when configured), soonest first. */
