@@ -2,7 +2,9 @@
 // Visitors get a sticky cookie; variant B is served from /v/b while the URL stays "/".
 import { NextResponse, type NextRequest } from "next/server";
 
-const VARIANTS = ["a", "b"] as const; // add "c" to run a three-way test
+// Only "a" (Same market. Better odds.) until traffic supports a real test (Steven, 2026-10-30).
+// Add "b" (and "c") back to restart the split; old "b" cookies fall back to "a".
+const VARIANTS = ["a"] as const;
 
 export function proxy(req: NextRequest) {
   let v = req.cookies.get("kwei_hero")?.value;
