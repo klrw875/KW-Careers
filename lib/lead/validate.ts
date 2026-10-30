@@ -26,7 +26,8 @@ export function validateLead(body: unknown): { ok: true; lead: LeadPayload } | {
     if (!lead.referral?.prospectName || !toE164(lead.referral.prospectMobile)) return { ok: false, error: "Add their name and a 10-digit mobile number." };
     return { ok: true, lead };
   }
-  if (lead.source === "notify") {
+  // Email-only forms: event notify list and the exit-offer guide
+  if (lead.source === "notify" || lead.source === "exit-offer") {
     if (!lead.email || !EMAIL.test(lead.email)) return { ok: false, error: "Enter a valid email." };
     return { ok: true, lead };
   }
