@@ -1,5 +1,5 @@
 import { PageHero, Split, Checks } from "@/components/PageHero";
-import { SectionHead, CalculatorSection, FaqSection, FinalCta, ProofBar, ValueStack, UpcomingEventsSection, NextLink, StoryFeature, BothWorlds } from "@/components/sections";
+import { SectionHead, CalculatorSection, FaqSection, FinalCta, ProofBar, ValueStack, UpcomingEventsSection, NextLink, StoryFeature, BothWorlds, MeetYourCoaches } from "@/components/sections";
 import { VideoPlayer } from "@/components/VideoPlayer";
 import { LivingWageSection } from "@/components/LivingWage";
 import { JsonLd, careerSchema, videoSchema } from "@/lib/schema";
@@ -61,6 +61,7 @@ export default function Page() {
         </div>
       </section>
       <BothWorlds />
+      <MeetYourCoaches persona="experienced" />
       <StoryFeature
         slug="andrew-schneider"
         white

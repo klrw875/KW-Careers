@@ -25,4 +25,7 @@ enc "Skillshare Golden Nugget (1).mp4" skillshare-golden-nugget "$H" 28
 enc "Skillshare Testimonials.mp4" skillshare-testimonials "$H" 28
 enc "KW Cares and Habitat for Humanity (1).mp4" kw-cares-habitat "$H" 28 750k
 enc "Pocatello KW Client Event (1).m4v" pocatello-client-event "$V" 28 650k
+# Coaches (source has a second video stream, so map the first explicitly)
+ffmpeg -y -v error -i "$SRC/Paula Arnold on Coaching.m4v" -map 0:v:0 -map 0:a:0 -vf "scale=540:960,fps=30" -c:v libx264 -profile:v high -preset slow -crf 26 \
+  -pix_fmt yuv420p -c:a aac -b:a 80k -ac 2 -movflags +faststart "$OUT/coach-paula-arnold.mp4"
 ls -lh "$OUT"/story-*.mp4 "$OUT"/skillshare-*.mp4 "$OUT"/kw-cares-habitat.mp4 "$OUT"/pocatello-client-event.mp4

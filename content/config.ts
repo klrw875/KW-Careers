@@ -146,6 +146,45 @@ export const testimonials: Testimonial[] = [
 export type Persona = "new" | "experienced" | "team";
 
 // ---- Leadership ----
+// Coaches shown in MeetYourCoaches. Video originals in project files; encodes in scripts/encode-stories.sh.
+export type Coach = {
+  slug: string;
+  name: string;
+  title: string;
+  forWho: string;
+  quote: string;
+  helps: string[];
+  video: string;
+  poster: string;
+  duration: string;
+  uploadDate: string;
+  transcript: string;
+};
+
+export const coaches: { growth: Coach; newAgent: Coach | null } = {
+  // Paula Arnold, "Agent Growth Coach" (title from Steven, 2026-10-30). Transcript from speech-to-text, lightly cleaned.
+  growth: {
+    slug: "paula-arnold",
+    name: "Paula Arnold",
+    title: "Agent Growth Coach",
+    forWho: "For any agent who wants extra support, encouragement and help, working alongside our productivity coaches.",
+    quote: "My biggest joy is watching the light bulbs go off for them as they consider possibilities.",
+    helps: [
+      "Weekly one-on-ones on where you are in your mindset",
+      "What you’re doing every day to reach your real estate goals",
+      "Lead generation that feels authentic and natural to you",
+    ],
+    video: "/media/coach-paula-arnold.mp4",
+    poster: "/media/coach-paula-arnold-poster.webp",
+    duration: "PT1M5S",
+    uploadDate: "2026-10-30",
+    transcript:
+      "My name is Paula Arnold. I work with agents weekly, and we walk through where they are in their mindset, what they’re doing daily to reach their real estate goals, and how they like to lead generate. What else could we add to their lead generation that is authentic and natural for them? My biggest joy is watching the light bulbs go off for them as they consider possibilities. They hit their goals and they’re so excited. I get text messages during the week letting me know about the listing appointment, that they got a signed agreement, a new buyer, “you wouldn’t believe it, we just had an offer put in and accepted.” That’s the joy. They’re hitting their goals. It’s one of the greatest joys. I love my job. I feel like I don’t work a day in my life because I love what I’m doing.",
+  },
+  // TODO: Jodi Steo, productivity coach for new solo agents. Video coming from Steven.
+  newAgent: null,
+};
+
 export const leaders = [
   {
     name: leadOwner.name,

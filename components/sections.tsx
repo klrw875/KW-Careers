@@ -13,6 +13,7 @@ import {
   TrackedLink,
 } from "./client";
 import { VideoPlayer } from "./VideoPlayer";
+import { Checks } from "./PageHero";
 import { Calculator } from "./Calculator";
 import { Quiz } from "./Quiz";
 import { Booking } from "./Booking";
@@ -20,6 +21,7 @@ import { EventBanner, EventRegister, NotifyForm } from "./EventsClient";
 import { FormProof } from "./FormProof";
 import { ProofCharts } from "./ProofCharts";
 import {
+  coaches,
   franchiseLine,
   leadOwner,
   leaders,
@@ -30,6 +32,7 @@ import {
   showPlaceholders,
   videos,
   marketCenter,
+  type Coach,
   type Persona,
 } from "@/content/config";
 import {
@@ -309,9 +312,69 @@ export function ProblemCards() {
             </article>
           ))}
         </div>
+        <div className="mt-14 border-t border-kw-gray-light pt-12">
+          <p className="eyebrow text-kw-red">You won’t do it alone</p>
+          <h3 className="mt-3 max-w-3xl text-3xl font-bold md:text-4xl">Meet {coaches.growth.name.split(" ")[0]}, one of the coaches in your corner.</h3>
+          <div className="mt-8">
+            <CoachCard c={coaches.growth} />
+          </div>
+        </div>
         <NextLink href="#leadership">
           Hear it from the people who run it
         </NextLink>
+      </div>
+    </section>
+  );
+}
+
+// ---------- Coaches ----------
+function coachSchema(c: Coach) {
+  return videoSchema({ title: `${c.name}, ${c.title}`, description: c.quote, poster: c.poster, src: c.video, duration: c.duration, uploadDate: c.uploadDate });
+}
+
+function CoachCard({ c, dark = false }: { c: Coach; dark?: boolean }) {
+  return (
+    <div className="grid items-center gap-10 lg:grid-cols-[1fr_300px]">
+      <figure className="max-w-2xl">
+        <p className={`eyebrow ${dark ? "text-kw-gray-light" : "text-kw-gray-medium"}`}>{c.title}</p>
+        <blockquote className="mt-4 border-l-4 border-kw-red pl-5 font-serif text-2xl leading-snug md:text-3xl">“{c.quote}”</blockquote>
+        <figcaption className={`mt-3 text-sm ${dark ? "text-kw-gray-light" : "text-kw-gray-medium"}`}>
+          {c.name}, {c.title}
+        </figcaption>
+        <p className={`mt-6 ${dark ? "text-kw-gray-light" : "text-kw-gray-medium"}`}>{c.forWho}</p>
+        <Checks dark={dark} items={c.helps} />
+        <details className={`mt-4 ${dark ? "text-kw-gray-light" : "text-kw-gray-medium"}`}>
+          <summary className={`min-h-11 cursor-pointer py-2 font-bold ${dark ? "text-white" : "text-black"}`}>Read the transcript</summary>
+          <p className="mt-2 leading-relaxed">{c.transcript}</p>
+        </details>
+      </figure>
+      <div className="w-full max-w-[300px] justify-self-center">
+        <JsonLd data={coachSchema(c)} />
+        <VideoPlayer src={c.video} poster={c.poster} title={`${c.name}, ${c.title}`} vertical phoneFrame label={`${c.name} · ${durationLabel(c.duration)}`} />
+      </div>
+    </div>
+  );
+}
+
+/** "Meet your coaches": the people behind "someone holding you to it". */
+export function MeetYourCoaches({ persona = "experienced" }: { persona?: Persona }) {
+  const c = persona === "new" ? (coaches.newAgent ?? coaches.growth) : coaches.growth;
+  return (
+    <section className="py-16 md:py-24">
+      <div className="wrap">
+        <SectionHead
+          eyebrow="Meet your coaches"
+          title="Someone in your corner, every week."
+          intro="Training teaches you what to do. A coach helps you actually do it, one week at a time, with a plan that fits how you like to work."
+        />
+        <div className="mt-10">
+          <CoachCard c={c} />
+        </div>
+        {persona === "new" && !coaches.newAgent && showPlaceholders && (
+          <p className="mt-10 max-w-3xl border-2 border-dashed border-kw-gray-medium p-4 text-sm text-kw-gray-medium">
+            TODO: Jodi Steo, productivity coach for new agents (video coming).
+          </p>
+        )}
       </div>
     </section>
   );
