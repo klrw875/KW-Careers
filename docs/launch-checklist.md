@@ -35,7 +35,7 @@
 - [ ] Twilio A2P 10DLC registered; Debbie gets the SMS alert; auto-text arrives in under 60 seconds
 - [ ] Auto-email arrives from Debbie's name (Resend domain verified: SPF/DKIM)
 - [ ] Event registration: confirmation now, 24h and 2h reminders scheduled
-- [ ] Eventbrite: events page pulls upcoming events from the KW East Idaho Eventbrite organizer (API key set in hosting env, never in the repo); each card links to its Eventbrite registration. Until then, add Eventbrite links to `content/events.ts` by hand
+- [ ] Eventbrite: auto-pull is built (`lib/eventbrite.ts`). Set `EVENTBRITE_TOKEN` (private token) in Vercel, redeploy, and confirm public events appear on /events. Unlisted/private Eventbrite events stay off the site
 - [ ] Hot lead pings `HOT_LEAD_SMS_LIST`
 - [ ] Booking embed fires `booking_complete`
 - [ ] GA4 key events, Meta Pixel + CAPI (check dedupe in Events Manager), Google Ads conversion

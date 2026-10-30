@@ -31,7 +31,6 @@ import {
   rosterStats,
   showPlaceholders,
   videos,
-  marketCenter,
   type Coach,
   type Persona,
 } from "@/content/config";
@@ -49,7 +48,8 @@ import {
   valueStack,
   type HeroVariant,
 } from "@/content/copy";
-import { events, formatEventDate, upcomingEvents } from "@/content/events";
+import { formatEventDate } from "@/content/events";
+import { getUpcomingEvents } from "@/lib/eventbrite";
 import { faqs } from "@/content/faqs";
 import {
   stories,
@@ -123,8 +123,9 @@ export function NextLink({
 }
 
 // ---------- 1. Hero ----------
-export function Hero({ variant = "a" }: { variant?: HeroVariant }) {
+export async function Hero({ variant = "a" }: { variant?: HeroVariant }) {
   const v = heroVariants[variant];
+  const events = await getUpcomingEvents();
   // The poster is the LCP element: tell the browser about it before it parses the hero
   preload(videos.heroLoop.poster, { as: "image", fetchPriority: "high" });
   return (
@@ -1287,8 +1288,8 @@ export function First90() {
 }
 
 // ---------- 12. Events ----------
-export function UpcomingEventsSection() {
-  const list = upcomingEvents();
+export async function UpcomingEventsSection() {
+  const list = await getUpcomingEvents();
   return (
     <section id="events" className="scroll-mt-20 bg-kw-wash py-16 md:py-24">
       <div className="wrap">
@@ -1308,7 +1309,7 @@ export function UpcomingEventsSection() {
                 <div className="relative aspect-[4/3] md:aspect-auto">
                   <Picture
                     k={e.image}
-                    alt="Agents in a business planning class at the KW Learning Center"
+                    alt="Agents in a class at the KW Learning Center"
                     sizes="(min-width:768px) 40vw, 100vw"
                     fill
                   />
@@ -1320,10 +1321,10 @@ export function UpcomingEventsSection() {
                   <h3 className="mt-2 text-3xl font-bold">{e.title}</h3>
                   <p className="mt-2 text-xl">{e.pitch}</p>
                   <p className="mt-3 text-kw-gray-medium">
-                    {time} · {marketCenter.street}, {marketCenter.city}
+                    {time} · {e.location}
                   </p>
                   <p className="mt-1 font-bold">{e.openTo}</p>
-                  <ul className="mt-4 space-y-1.5 text-sm">
+                  {e.details.length > 0 && <ul className="mt-4 space-y-1.5 text-sm">
                     {e.details.map((d) => (
                       <li key={d} className="flex gap-2">
                         <span className="text-kw-red" aria-hidden>
@@ -1332,7 +1333,7 @@ export function UpcomingEventsSection() {
                         {d}
                       </li>
                     ))}
-                  </ul>
+                  </ul>}
                   <div className="mt-6" id="register">
                     <EventRegister event={e} />
                   </div>

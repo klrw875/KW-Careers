@@ -1,7 +1,7 @@
 import { UpcomingEventsSection, FinalCta, SectionHead } from "@/components/sections";
 import { NotifyForm } from "@/components/EventsClient";
 import { JsonLd, eventSchema } from "@/lib/schema";
-import { upcomingEvents } from "@/content/events";
+import { getUpcomingEvents } from "@/lib/eventbrite";
 import { pageMeta } from "@/lib/meta";
 
 export const metadata = pageMeta({
@@ -11,10 +11,11 @@ export const metadata = pageMeta({
   og: "og-training",
 });
 
-export default function Page() {
+export default async function Page() {
+  const events = await getUpcomingEvents();
   return (
     <>
-      <JsonLd data={upcomingEvents().map(eventSchema)} />
+      <JsonLd data={events.map(eventSchema)} />
       <div className="on-dark bg-black py-12 text-white md:py-16">
         <div className="wrap">
           <p className="eyebrow text-kw-gray">Events</p>

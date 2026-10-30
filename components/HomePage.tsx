@@ -5,14 +5,15 @@ import {
 import { LivingWageSection } from "./LivingWage";
 import { ClientBoot } from "./client";
 import { JsonLd, homeVideos, localBusinessSchemas, eventSchema } from "@/lib/schema";
-import { upcomingEvents } from "@/content/events";
+import { getUpcomingEvents } from "@/lib/eventbrite";
 import type { HeroVariant } from "@/content/copy";
 
-export function HomePage({ variant = "a" }: { variant?: HeroVariant }) {
+export async function HomePage({ variant = "a" }: { variant?: HeroVariant }) {
+  const events = await getUpcomingEvents();
   return (
     <>
       <ClientBoot heroVariant={variant} />
-      <JsonLd data={[...localBusinessSchemas(), ...homeVideos(), ...upcomingEvents().map(eventSchema)]} />
+      <JsonLd data={[...localBusinessSchemas(), ...homeVideos(), ...events.map(eventSchema)]} />
       <Hero variant={variant} />
       <ProofBar />
       <ProblemCards />
