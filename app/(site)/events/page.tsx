@@ -1,5 +1,6 @@
 import { UpcomingEventsSection, FinalCta, SectionHead } from "@/components/sections";
 import { NotifyForm } from "@/components/EventsClient";
+import { TrainingCalendar } from "@/components/TrainingCalendar";
 import { JsonLd, eventSchema } from "@/lib/schema";
 import { getUpcomingEvents } from "@/lib/eventbrite";
 import { pageMeta } from "@/lib/meta";
@@ -23,6 +24,7 @@ export default async function Page() {
         </div>
       </div>
       <UpcomingEventsSection />
+      <TrainingCalendar />
       <section className="py-16">
         <div className="wrap max-w-2xl">
           <SectionHead eyebrow="Never miss one" title="Get new dates first." />

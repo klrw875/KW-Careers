@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { eventbriteId, fetchEventbriteEvents, mergeEvents } from "./eventbrite";
+import { eventbriteId, fetchEventbriteEvents, isHidden, mergeEvents } from "./eventbrite";
 import type { SiteEvent } from "@/content/events";
 
 const eb = (over: Record<string, unknown> = {}) => ({
@@ -40,6 +40,14 @@ describe("eventbrite", () => {
       price: "Free",
       registerUrl: "https://www.eventbrite.com/e/open-training-tickets-111222333",
     });
+  });
+
+  it("skips PEAK Leadgen however it's written", async () => {
+    expect(isHidden("PEAK Lead Gen: Tuesday Call Session")).toBe(true);
+    expect(isHidden("Peak LeadGen")).toBe(true);
+    expect(isHidden("Agent Insider: Your Brand, Your Story")).toBe(false);
+    const list = await fetchEventbriteEvents("t", "42", fakeFetch([eb({ id: "7", name: { text: "PEAK Leadgen" } }), eb()]));
+    expect(list.map((e) => e.title)).toEqual(["Open Training"]);
   });
 
   it("keeps the hand-entered copy when both list the same event", async () => {

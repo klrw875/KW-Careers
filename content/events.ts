@@ -18,6 +18,16 @@ export type SiteEvent = {
   registerUrl?: string;
 };
 
+/** Eventbrite events whose title contains any of these (ignoring case, spaces and punctuation) stay off the site. */
+export const hiddenEventbriteTitles = ["PEAK Leadgen"];
+
+/**
+ * Public Google Calendar of the ongoing weekly trainings, shown on /events.
+ * The calendar's ID from Google Calendar > Settings > Integrate calendar (calendar must be public).
+ * null hides the section.
+ */
+export const trainingCalendarId: string | null = null;
+
 export const events: SiteEvent[] = [
   {
     id: "business-planning-clinic-2026-10-29",
