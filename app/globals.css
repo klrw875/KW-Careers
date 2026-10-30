@@ -1,0 +1,120 @@
+@import "tailwindcss";
+
+/* KW digital brand tokens (2018 KW digital style guide; confirm against current brand kit before launch) */
+:root {
+  --kw-red: #b40101; /* Pantone 200: accents, CTAs, key numbers. Never a full background behind body copy. */
+  --kw-red-dark: #8e0101; /* hover state only */
+  --kw-gray: #999999; /* Pantone 424, secondary text on dark */
+  --kw-gray-medium: #666666;
+  --kw-gray-light: #cccccc;
+  --kw-gray-wash: #f4f4f4;
+  --kw-black: #000000;
+  --white: #ffffff;
+}
+
+@theme inline {
+  --color-kw-red: var(--kw-red);
+  --color-kw-red-dark: var(--kw-red-dark);
+  --color-kw-gray: var(--kw-gray);
+  --color-kw-gray-medium: var(--kw-gray-medium);
+  --color-kw-gray-light: var(--kw-gray-light);
+  --color-kw-wash: var(--kw-gray-wash);
+  --color-kw-black: var(--kw-black);
+  /* Nimbus Sans is licensed: drop the files in /public/fonts and enable the @font-face below */
+  --font-display: "Nimbus Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --font-sans: var(--font-roboto), "Helvetica Neue", Arial, sans-serif;
+  --font-serif: "Adobe Garamond Pro", var(--font-garamond), Garamond, serif;
+}
+
+/*
+@font-face { font-family: "Nimbus Sans"; src: url("/fonts/NimbusSans-Bold.woff2") format("woff2"); font-weight: 700; font-display: swap; }
+@font-face { font-family: "Nimbus Sans"; src: url("/fonts/NimbusSans-Regular.woff2") format("woff2"); font-weight: 400; font-display: swap; }
+*/
+
+html {
+  -webkit-text-size-adjust: 100%;
+  scroll-behavior: smooth;
+}
+body {
+  background: var(--white);
+  color: var(--kw-black);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+h1, h2, h3, h4, .font-display {
+  font-family: var(--font-display);
+  letter-spacing: -0.02em;
+  text-wrap: balance;
+}
+p { text-wrap: pretty; }
+a[href^="tel:"] { white-space: nowrap; }
+
+/* Visible focus everywhere (WCAG 2.2 AA) */
+:focus-visible {
+  outline: 3px solid var(--kw-red);
+  outline-offset: 3px;
+}
+.on-dark :focus-visible { outline-color: #fff; }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
+}
+
+/* Buttons: flat, no shadows, no gradients */
+@layer components {
+  .btn {
+    display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem;
+    min-height: 3.25rem; padding: 0 1.5rem; font-weight: 700; font-size: 1rem; line-height: 1.1;
+    border-radius: 2px; transition: background-color .15s, color .15s, border-color .15s; text-align: center;
+  }
+  .btn-red { background: var(--kw-red); color: #fff; }
+  .btn-red:hover { background: var(--kw-red-dark); }
+  .btn-ghost { border: 2px solid currentColor; }
+  .btn-ghost:hover { background: #fff; color: #000; border-color: #fff; }
+  .btn-ghost-dark { border: 2px solid #000; color: #000; }
+  .btn-ghost-dark:hover { background: #000; color: #fff; }
+  .eyebrow {
+    display: inline-flex; align-items: center; gap: .75rem; font-size: .8125rem; font-weight: 700;
+    letter-spacing: .14em; text-transform: uppercase;
+  }
+  .eyebrow::before { content: ""; width: 2rem; height: 3px; background: var(--kw-red); }
+  .field {
+    width: 100%; min-height: 3.25rem; padding: .75rem 1rem; border: 1.5px solid var(--kw-gray-medium);
+    border-radius: 2px; background: #fff; color: #000; font-size: 1rem;
+  }
+  .field:focus { border-color: #000; outline: 3px solid var(--kw-red); outline-offset: 0; }
+  .wrap { width: 100%; max-width: 76rem; margin-inline: auto; padding-inline: 1.25rem; }
+  @media (min-width: 768px) { .wrap { padding-inline: 2rem; } }
+}
+
+/* Slow, cinematic reveal */
+@keyframes rise { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: none; } }
+.rise { animation: rise .9s cubic-bezier(.2,.7,.2,1) both; }
+.rise-2 { animation-delay: .12s; }
+.rise-3 { animation-delay: .24s; }
+
+@keyframes pulse-ring { 0% { transform: scale(.85); opacity: .9; } 100% { transform: scale(1.6); opacity: 0; } }
+.pulse-ring { transform-origin: center; transform-box: fill-box; animation: pulse-ring 3.2s ease-out infinite; }
+.pulse-ring.d2 { animation-delay: 1.06s; }
+.pulse-ring.d3 { animation-delay: 2.12s; }
+
+.no-scrollbar::-webkit-scrollbar { display: none; }
+.no-scrollbar { scrollbar-width: none; }
+
+/* Proof charts: armed below the fold, then run once in view (InViewAnim). */
+.chart-anim .grow-x { transform-origin: left; transition: transform .9s cubic-bezier(.2,.7,.2,1) var(--d, 0ms); }
+.chart-anim .pop { transition: transform .45s cubic-bezier(.3,1.5,.5,1) var(--d, 0ms), opacity .3s var(--d, 0ms); }
+.chart-anim .dot-kw { transition: background-color .35s var(--d, 0ms), transform .35s var(--d, 0ms); }
+.chart-anim[data-anim="armed"] .grow-x { transform: scaleX(0); }
+.chart-anim[data-anim="armed"] .pop { transform: scale(0); opacity: 0; }
+.chart-anim[data-anim="armed"] .dot-kw { background-color: var(--kw-gray-light); transform: scale(.6); }
+
+/* Pendulum (BothWorlds): swings to both extremes, then settles in the middle. Rests centered without JS. */
+.pendulum { transform-origin: 300px 10px; transform-box: view-box; }
+.chart-anim[data-anim="armed"] .pendulum { transform: rotate(48deg); }
+.chart-anim[data-anim="run"] .pendulum { animation: settle 3.2s cubic-bezier(.45,.05,.55,.95) both; }
+@keyframes settle {
+  0% { transform: rotate(48deg); } 22% { transform: rotate(-40deg); } 42% { transform: rotate(28deg); }
+  60% { transform: rotate(-16deg); } 76% { transform: rotate(8deg); } 90% { transform: rotate(-3deg); } 100% { transform: rotate(0); }
+}
