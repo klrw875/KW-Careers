@@ -15,6 +15,18 @@ export function useLiveEvents(list: SiteEvent[]) {
 export function EventRegister({ event, dark = false }: { event: SiteEvent; dark?: boolean }) {
   const [open, setOpen] = useState(false);
   const { day, time } = formatEventDate(event);
+  if (event.registerUrl)
+    return (
+      <a
+        href={event.registerUrl}
+        target="_blank"
+        rel="noopener"
+        className="btn btn-red w-full sm:w-auto"
+        onClick={() => track("event_register", { event: event.id, via: "eventbrite" })}
+      >
+        Save My Seat on Eventbrite
+      </a>
+    );
   if (!open)
     return (
       <button type="button" className="btn btn-red w-full sm:w-auto" onClick={() => setOpen(true)}>

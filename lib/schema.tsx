@@ -69,18 +69,18 @@ export function eventSchema(e: SiteEvent) {
     "@context": "https://schema.org",
     "@type": "EducationEvent",
     name: e.title,
-    description: `${e.pitch} ${e.openTo}`,
+    description: `${e.pitch} ${e.openTo}`.trim(),
     startDate: e.start,
     endDate: e.end,
     eventStatus: "https://schema.org/EventScheduled",
     eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode",
     image: abs("/media/trainingFinancial-1024.webp"),
-    isAccessibleForFree: true,
+    isAccessibleForFree: e.price === "Free",
     location: o?.street
       ? { "@type": "Place", name: o.name, address: { "@type": "PostalAddress", streetAddress: o.street, addressLocality: o.city, addressRegion: "ID", postalCode: o.zip, addressCountry: "US" } }
       : { "@type": "Place", name: e.location },
     organizer: { "@type": "Organization", name: site.brokerage, url: site.url },
-    offers: { "@type": "Offer", price: 0, priceCurrency: "USD", availability: "https://schema.org/InStock", url: `${site.url}/events` },
+    offers: { "@type": "Offer", ...(e.price === "Free" ? { price: 0, priceCurrency: "USD" } : {}), availability: "https://schema.org/InStock", url: e.registerUrl ?? `${site.url}/events` },
   };
 }
 

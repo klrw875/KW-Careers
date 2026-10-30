@@ -1,4 +1,6 @@
 // Real dates only. Events hide automatically after `end`. Times are Mountain Time.
+// With EVENTBRITE_TOKEN set, public listed Eventbrite events are added automatically (lib/eventbrite.ts);
+// entries here are for events not on Eventbrite, or to add detail to one that is (same registerUrl).
 export type SiteEvent = {
   id: string;
   title: string;
@@ -12,6 +14,8 @@ export type SiteEvent = {
   image: "trainingFinancial" | "trainingSession" | "marketPulse" | "mastermind" | "lobby";
   primaryCta: boolean; // the main recruiting CTA while upcoming (hero banner)
   details: string[];
+  /** Eventbrite (or other) registration page. Without it, the on-site form registers them. */
+  registerUrl?: string;
 };
 
 export const events: SiteEvent[] = [
@@ -33,10 +37,30 @@ export const events: SiteEvent[] = [
       "A simple weekly schedule you can keep through a busy spring",
     ],
   },
+  {
+    id: "agent-insider-your-brand-your-story-2026-11-04",
+    title: "Agent Insider: Your Brand, Your Story",
+    pitch: "Scrolling isn’t a strategy. Posting and praying isn’t either.",
+    start: "2026-11-04T14:00:00-07:00",
+    end: "2026-11-04T15:00:00-07:00",
+    location: "Keller Williams Realty East Idaho Training Room, 3525 Merlin Dr, Idaho Falls, ID 83404",
+    officeSlug: "idaho-falls",
+    openTo: "For agents at every level who want more business from Facebook.",
+    price: "See Eventbrite",
+    image: "trainingSession",
+    primaryCta: true,
+    details: [
+      "Realtor Matt Hansen on how he uses Facebook to build his business",
+      "His three personal brand pillars, and how to choose yours",
+      "When, where and how often to post, and how to tag without annoying people",
+      "A two-step funnel that turns conversations into clients",
+    ],
+    registerUrl: "https://www.eventbrite.com/e/agent-insider-your-brand-your-story-tickets-2003376471957",
+  },
 ];
 
-export function upcomingEvents(now = new Date()) {
-  return events.filter((e) => new Date(e.end) > now).sort((a, b) => +new Date(a.start) - +new Date(b.start));
+export function upcomingEvents(list: SiteEvent[] = events, now = new Date()) {
+  return list.filter((e) => new Date(e.end) > now).sort((a, b) => +new Date(a.start) - +new Date(b.start));
 }
 
 const tz = "America/Denver";
