@@ -19,11 +19,11 @@
 - [ ] Confirm domain
 
 ## Compliance sign-off (operating principal / MCA)
-- [ ] Income and profit share wording, disclaimers and `/disclosures` (link the official KW profit share disclosure)
+- [x] (Broker approved 2026-11-02) Income and profit share wording, disclaimers and `/disclosures` (link the official KW profit share disclosure)
 - [ ] FAQ answers tagged "TODO: leadership to confirm" (listings, part-time, team names, switching time)
 - [ ] Idaho licensing steps on `/new-agents` against current IREC requirements
 - [ ] KW Belief System wording against the current KW brand kit
-- [ ] TCPA consent text and privacy policy reviewed by counsel
+- [x] (Broker approved 2026-11-02) TCPA consent text and privacy policy reviewed
 - [ ] Photo consent: identifiable attendees in the training photos; blur stays on the Zoom grid until each person OKs it
 - [ ] Anderson Hicks Group OK for the Market Pulse slide photo
 - [ ] Brand kit check: colors, logo clear space, no effects
