@@ -962,6 +962,9 @@ export function ProfitShareSection() {
           <h2 className="mt-3 text-3xl leading-tight font-bold md:text-4xl">
             paid to KW East Idaho agents in profit share, {profitShare.period}.
           </h2>
+          <p className="mt-3 font-bold">
+            Including ${profitShare.latestMonth.amount.toLocaleString("en-US")} in {profitShare.latestMonth.label} alone.
+          </p>
           <p className="mt-5 text-lg text-kw-gray-medium">
             When the market center makes a profit, part of it is shared with the
             agents who helped it grow. Help a great agent find a home here, and

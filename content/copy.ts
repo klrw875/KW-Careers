@@ -1,6 +1,6 @@
 // Page copy that leadership may want to tune. Grade 6–8 reading level, "you" over "we".
 import type { MediaKey } from "./media.generated";
-import type { Persona } from "./config";
+import { profitShare, type Persona } from "./config";
 
 export const heroVariants = {
   a: { id: "a", headline: "Same market. Better odds." },
@@ -116,7 +116,7 @@ export const valueStack: { group: string; items: { headline: string; meaning: st
   },
   {
     group: "Profit share and wealth",
-    items: [{ headline: "Share in what you help build", meaning: "Agents shared $138,741 in profit share, Jan–Sep 2026. Not guaranteed; varies by year." }],
+    items: [{ headline: "Share in what you help build", meaning: `Agents shared $${profitShare.amount.toLocaleString("en-US")} in profit share, ${profitShare.period}. Not guaranteed; varies by year.` }],
   },
   {
     group: "Admin and transaction support",
