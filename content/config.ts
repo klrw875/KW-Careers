@@ -77,8 +77,9 @@ export const roster = {
 };
 
 export const profitShare = {
-  amount: 138741,
-  period: "Jan–Sep 2026",
+  amount: 155531, // $155,530.59, rounded (Steven, 2026-11-02)
+  period: "Jan–Oct 2026",
+  latestMonth: { label: "October", amount: 16790 }, // $16,789.55; update monthly
   disclaimer:
     "Profit share is paid from market center profits, varies year to year and is not guaranteed. Past amounts do not predict future payments.",
 };
