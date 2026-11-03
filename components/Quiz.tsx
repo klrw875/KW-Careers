@@ -20,7 +20,7 @@ const results: Record<Persona, { headline: string; body: string; next: { href: s
     headline: "Your path: keep more of what you earn, and get your time back.",
     body: "You already know how to sell. The question is what you keep and what you carry alone. With KW MyWay you choose your split, cap and fees. With leadership down the hall, you stop doing everything yourself.",
     next: { href: "/experienced-agents", label: "See what changes when you move" },
-    points: ["12K plan: after cap, it’s yours except small per-deal fees", "Transition concierge moves your listings, signs and database", "The typical KW East Idaho agent closes 75% more"],
+    points: ["12K plan: after cap, it’s yours except small per-deal fees", "Debbie and the team walk you through every step of the move", "The typical KW East Idaho agent closes 75% more"],
   },
   team: {
     headline: "Your path: keep your brand and scale with real support.",

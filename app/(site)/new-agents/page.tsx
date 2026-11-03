@@ -25,7 +25,7 @@ const roadmap = [
 
 const ninety = [
   { when: "Week 1", t: "Get set up", b: "Onboarding, KW Command, your database, your business cards and your first client conversations." },
-  { when: "Weeks 2–4", t: "Learn the core skills", b: "Weekly trainings on lead generation, scripts, contracts and showings. Every class is also on Zoom." },
+  { when: "Weeks 2–4", t: "Learn the core skills", b: "Weekly trainings on lead generation, scripts, contracts and showings. Most classes are also available on Zoom." },
   { when: "Day 30", t: "Write your plan", b: "Sit down with leadership. Pick your goal and work backward to the weekly habits that get you there." },
   { when: "Day 90", t: "First review", b: "Look at your numbers together. Celebrate the wins. Fix what isn’t working." },
 ];
@@ -87,7 +87,7 @@ export default function Page() {
       <Split image="zoom" alt="A live Zoom training with about 20 agents on screen" caption="Every session is on Zoom.">
         <p className="eyebrow text-kw-gray-medium">Train from anywhere</p>
         <h2 className="mt-4 text-3xl font-bold md:text-4xl">Train live from Idaho Falls, Pocatello or anywhere.</h2>
-        <p className="mt-4 text-lg text-kw-gray-medium">Every session is on Zoom, so you never miss a class because of the drive or your schedule.</p>
+        <p className="mt-4 text-lg text-kw-gray-medium">Most sessions are on Zoom, so the drive or your schedule doesn’t keep you from learning.</p>
       </Split>
       <section className="on-dark bg-black py-16 text-white md:py-24">
         <div className="wrap">
