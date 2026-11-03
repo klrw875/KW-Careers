@@ -18,7 +18,7 @@ All events go through `track()` in `lib/analytics.ts`, which pushes to `dataLaye
 | `video_50` | 50% watched | `video` | | custom | |
 | `video_complete` | Watched to the end | `video` | | custom | |
 | `click_to_text` | "Text Us" tapped | `from` | ✓ | custom | |
-| `exit_offer_view` | Exit / scroll-depth offer shown | | | custom | |
+| `exit_offer_view` | Free guide corner card shown (50% scroll + 20s, once until dismissed) | | | custom | |
 
 Every lead also carries (hidden fields): `persona`, quiz answers, calculator inputs, `utm_source/medium/campaign/term/content`, `gclid`, `fbclid`, `landing_page`, `referrer`, `ref` (referring agent code from /refer links), `heroVariant`, `page`. UTMs persist across sessions in localStorage (`lib/attribution.ts`).
 

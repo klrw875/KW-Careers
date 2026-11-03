@@ -94,6 +94,9 @@ a[href^="tel:"] { white-space: nowrap; }
 .rise-2 { animation-delay: .12s; }
 .rise-3 { animation-delay: .24s; }
 
+/* Free guide card slides into the corner */
+.guide-in { animation: rise .5s cubic-bezier(.2,.7,.2,1) both; }
+
 @keyframes pulse-ring { 0% { transform: scale(.85); opacity: .9; } 100% { transform: scale(1.6); opacity: 0; } }
 .pulse-ring { transform-origin: center; transform-box: fill-box; animation: pulse-ring 3.2s ease-out infinite; }
 .pulse-ring.d2 { animation-delay: 1.06s; }
