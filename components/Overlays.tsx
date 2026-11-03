@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "@/components/SmartLink";
 import { usePathname } from "next/navigation";
 import { leadOwner, leadMagnets, textUsBody } from "@/content/config";
@@ -38,59 +38,103 @@ export function StickyCta() {
   );
 }
 
-/** Desktop exit intent, mobile 70% scroll + 45s. Once per session; never on /book or /lp. */
+// Guide offer state per visitor: "dismissed" (with time) or "sent". Read/write never throw.
+const KEY = "kwei_guide";
+const REST_DAYS = 30;
+function readGuide(): { state: "dismissed" | "sent"; at: number } | null {
+  try {
+    return JSON.parse(localStorage.getItem(KEY) ?? "null");
+  } catch {
+    return null;
+  }
+}
+function writeGuide(state: "dismissed" | "sent") {
+  try {
+    localStorage.setItem(KEY, JSON.stringify({ state, at: Date.now() }));
+  } catch {}
+}
+
+/**
+ * Free guide offer: a small card that slides into the corner once the visitor has read
+ * half a page for 20+ seconds. Never a modal, never blocks content, never on /book, /quiz or /lp.
+ * Closing it leaves a small "Free Playbook" tab; it won't pop up again for 30 days, and never after they get the guide.
+ */
 export function ExitOffer() {
-  const [open, setOpen] = useState(false);
+  const [view, setView] = useState<"none" | "card" | "tab">("none");
+  const [form, setForm] = useState(false); // email field opens only when they ask for it
   const path = usePathname();
-  const dialog = useRef<HTMLDialogElement>(null);
   const persona = typeof window !== "undefined" ? getPersona() : null;
   const magnet = persona === "new" && leadMagnets.new.file ? leadMagnets.new : leadMagnets.experienced;
+  const hidden = path?.startsWith("/book") || path?.startsWith("/quiz") || path?.startsWith("/lp");
 
   useEffect(() => {
-    if (path?.startsWith("/book") || path?.startsWith("/quiz")) return;
-    let seen = false;
-    try {
-      seen = sessionStorage.getItem("kwei_exit") === "1";
-    } catch {}
-    if (seen) return;
-    const fire = () => {
-      try {
-        sessionStorage.setItem("kwei_exit", "1");
-      } catch {}
-      setOpen(true);
-      track("exit_offer_view");
-    };
+    const saved = readGuide();
+    if (saved?.state === "sent") return;
+    const resting = saved?.state === "dismissed" && Date.now() - saved.at < REST_DAYS * 864e5;
+    if (resting) {
+      // After hydration, so server and first client render match
+      const id = requestAnimationFrame(() => setView("tab"));
+      return () => cancelAnimationFrame(id);
+    }
     const t0 = Date.now();
-    const desktop = matchMedia("(min-width: 768px) and (pointer: fine)").matches;
-    const onLeave = (e: MouseEvent) => {
-      if (e.clientY <= 0 && Date.now() - t0 > 8000) fire();
-    };
     const onScroll = () => {
       const h = document.documentElement.scrollHeight - innerHeight;
-      if (h > 0 && scrollY / h > 0.7 && Date.now() - t0 > 45000) fire();
+      if (h > 0 && scrollY / h > 0.5 && Date.now() - t0 > 20000) {
+        removeEventListener("scroll", onScroll);
+        setView("card");
+        track("exit_offer_view");
+      }
     };
-    if (desktop) document.addEventListener("mouseout", onLeave);
-    else addEventListener("scroll", onScroll, { passive: true });
-    return () => {
-      document.removeEventListener("mouseout", onLeave);
-      removeEventListener("scroll", onScroll);
-    };
-  }, [path]);
+    addEventListener("scroll", onScroll, { passive: true });
+    return () => removeEventListener("scroll", onScroll);
+  }, []);
 
   useEffect(() => {
-    if (open) dialog.current?.showModal();
-  }, [open]);
+    if (view !== "card") return;
+    const onKey = (e: KeyboardEvent) => e.key === "Escape" && dismiss();
+    addEventListener("keydown", onKey);
+    return () => removeEventListener("keydown", onKey);
+  }, [view]);
 
-  if (!open) return null;
+  function dismiss() {
+    writeGuide("dismissed");
+    setView("tab");
+  }
+
+  if (hidden || view === "none") return null;
+  // Sits above the mobile sticky CTA bar
+  const spot = "fixed right-3 bottom-[calc(4.5rem+env(safe-area-inset-bottom))] z-40 md:right-6 md:bottom-6";
+  if (view === "tab")
+    return (
+      <button type="button" onClick={() => { setForm(true); setView("card"); }} className={`${spot} border-l-4 border-kw-red bg-black px-4 py-2.5 text-sm font-bold text-white hover:bg-kw-red`}>
+        Free Playbook
+      </button>
+    );
   return (
-    <dialog ref={dialog} onClose={() => setOpen(false)} className="m-auto w-[min(34rem,calc(100%-2rem))] bg-white p-0 backdrop:bg-black/70" aria-labelledby="exit-title">
-      <div className="border-t-8 border-kw-red p-6 sm:p-8">
-        <button type="button" onClick={() => dialog.current?.close()} className="float-right -mt-2 -mr-2 grid h-11 w-11 place-items-center text-2xl" aria-label="Close">×</button>
-        <p className="eyebrow text-kw-gray-medium">Free guide</p>
-        <h2 id="exit-title" className="mt-3 text-2xl font-bold sm:text-3xl">{magnet.title}</h2>
-        <p className="mt-2 mb-5 text-kw-gray-medium">{magnet.subtitle}. Sent to your inbox in a minute.</p>
-        <LeadForm source="exit-offer" submitLabel="Send Me the Guide" emailOnly extra={() => ({ calculator: { magnet: magnet.title } })} success={<p className="font-bold">On its way. Check your inbox.</p>} />
-      </div>
-    </dialog>
+    <aside aria-labelledby="guide-title" className={`${spot} guide-in left-3 border-t-4 border-kw-red bg-white py-3 pr-10 pl-4 ring-1 ring-black/15 md:left-auto md:w-80 md:p-4 md:pr-10`}>
+      <button type="button" onClick={dismiss} className="absolute top-0 right-0 grid h-10 w-10 place-items-center text-2xl text-kw-gray-medium hover:text-black" aria-label="Close">×</button>
+      <p className="text-xs font-bold tracking-[.14em] text-kw-red uppercase">Free guide</p>
+      <h2 id="guide-title" className="mt-1 leading-snug font-bold">{magnet.title}</h2>
+      {!form ? (
+        <div className="mt-2 flex flex-wrap items-center gap-x-4 gap-y-2">
+          <p className="text-sm text-kw-gray-medium">{magnet.subtitle}.</p>
+          <button type="button" onClick={() => setForm(true)} className="text-sm font-bold text-kw-red underline underline-offset-4">
+            Send it to me
+          </button>
+        </div>
+      ) : (
+        <div className="mt-3">
+          <LeadForm
+            source="exit-offer"
+            submitLabel="Send Me the Guide"
+            emailOnly
+            compact
+            extra={() => ({ calculator: { magnet: magnet.title } })}
+            onSuccess={() => writeGuide("sent")}
+            success={<p className="font-bold">On its way. Check your inbox.</p>}
+          />
+        </div>
+      )}
+    </aside>
   );
 }
