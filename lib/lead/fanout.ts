@@ -101,7 +101,9 @@ export async function fanOut(lead: Lead) {
 
   // 4. Speed to lead: auto-text + email in Debbie's name within 60 seconds
   if (lead.mobileE164 && lead.smsConsent) tasks.push(safe("auto-text", () => sendSms(lead.mobileE164!, autoText(lead))));
-  if (lead.email && lead.source !== "refer") tasks.push(safe("auto-email", () => sendEmail(lead.email!, autoEmailSubject(lead), autoEmail(lead), leadOwner.email)));
+  // Once Twilio is live, the 60-second auto-text has gone out, so the email can say so
+  const textSent = Boolean(lead.mobileE164 && lead.smsConsent && env("TWILIO_ACCOUNT_SID") && env("TWILIO_AUTH_TOKEN") && env("TWILIO_MESSAGING_SERVICE_SID"));
+  if (lead.email && lead.source !== "refer") tasks.push(safe("auto-email", () => sendEmail(lead.email!, autoEmailSubject(lead), autoEmail(lead, textSent), leadOwner.email)));
 
   // 5. Event registration: confirmation now, reminders 24h and 2h before
   const ev = lead.eventId ? events.find((e) => e.id === lead.eventId) : undefined;
@@ -157,6 +159,7 @@ function autoText(lead: Lead) {
 }
 
 function autoEmailSubject(lead: Lead) {
+  if (lead.source === "booking-request") return `Got your request${lead.firstName ? `, ${lead.firstName}` : ""}`;
   if (lead.source === "calculator") return "Your KW MyWay plan breakdown";
   const magnet = magnetFor(lead);
   if (magnet) return `Your copy of ${magnet.title}`;
@@ -173,7 +176,37 @@ function magnetFor(lead: Lead) {
   return m ?? null;
 }
 
-function autoEmail(lead: Lead) {
+// Hours Debbie can promise a same-hour reply (Mountain Time, every day)
+const REPLY_HOURS = { start: 8, end: 19 };
+function mountainHour(d: Date) {
+  return Number(new Intl.DateTimeFormat("en-US", { hour: "numeric", hourCycle: "h23", timeZone: "America/Denver" }).format(d));
+}
+
+/**
+ * They asked Debbie to reach out: confirm, commit her to the next step and promise confidentiality.
+ * Nothing for them to do, so nothing to talk themselves out of.
+ */
+export function bookingConfirmEmail(lead: Lead, now = new Date(), textSent = false) {
+  const h = mountainHour(now);
+  const when = h >= REPLY_HOURS.start && h < REPLY_HOURS.end ? "within the hour" : "first thing in the morning";
+  const canText = Boolean(lead.mobileE164 && lead.smsConsent);
+  const next = textSent
+    ? `I just sent you a text from ${leadOwner.phone}. Reply there with a time that works, and we'll get it on the calendar.`
+    : canText
+      ? `I'll text you ${when} from ${leadOwner.phone} to find a time that works for you.`
+      : `I'll call you ${when} from ${leadOwner.phone} to find a time that works for you.`;
+  return [
+    `Hi ${lead.firstName ?? "there"},`,
+    `Got your request. ${next}`,
+    `Everything we talk about stays between us. Your current brokerage won't hear about it from us.`,
+    `We'll keep it to about 20 minutes, focused on your goals. No sales pitch.`,
+    `Talk soon,\n${leadOwner.name}, ${leadOwner.title}\n${site.brokerage}\n${marketCenter.street}, ${marketCenter.city}, ID ${marketCenter.zip}\n${leadOwner.phone}`,
+    `P.S. Save my number so you know it's me when I reach out.`,
+  ].join("\n\n");
+}
+
+export function autoEmail(lead: Lead, textSent = false) {
+  if (lead.source === "booking-request") return bookingConfirmEmail(lead, new Date(), textSent);
   const magnet = magnetFor(lead);
   const guide = magnet
     ? `\n\nHere's your copy of ${magnet.title}:\n${site.url}${magnet.file}\n\nGrab a pen. Every section ends with a worksheet. When you've filled in your numbers, I'd love to look at them with you.`
