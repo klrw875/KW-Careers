@@ -1,9 +1,9 @@
 // Every number, name, phone, address and claim on the site lives here (or in the other
 // files in /content). Change values here, not in components. Anything marked TODO is a
-// fact leadership still has to supply; placeholders only render while
-// NEXT_PUBLIC_SHOW_PLACEHOLDERS is not "false" (turn it off for launch).
+// fact leadership still has to supply; placeholders are hidden on the live site and
+// only render when NEXT_PUBLIC_SHOW_PLACEHOLDERS is "true" (e.g. to review what's missing).
 
-export const showPlaceholders = process.env.NEXT_PUBLIC_SHOW_PLACEHOLDERS !== "false";
+export const showPlaceholders = process.env.NEXT_PUBLIC_SHOW_PLACEHOLDERS === "true";
 
 export const site = {
   url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://careers.kweastidaho.com", // TODO: confirm domain

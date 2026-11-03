@@ -27,7 +27,7 @@
 - [ ] Photo consent: identifiable attendees in the training photos; blur stays on the Zoom grid until each person OKs it
 - [ ] Anderson Hicks Group OK for the Market Pulse slide photo
 - [ ] Brand kit check: colors, logo clear space, no effects
-- [ ] Turn off placeholders: `NEXT_PUBLIC_SHOW_PLACEHOLDERS=false`
+- [x] Placeholders hidden by default (2026-11-03); set `NEXT_PUBLIC_SHOW_PLACEHOLDERS=true` only to review what is missing
 
 ## Integrations
 - [ ] KW Command lead intake confirmed with KW tech support; test lead appears with all hidden fields
