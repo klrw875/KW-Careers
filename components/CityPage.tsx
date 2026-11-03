@@ -41,7 +41,7 @@ export function CityPage({ slug }: { slug: (typeof cities)[number]["slug"] }) {
         <Split image="zoom" alt="A live Zoom training with about 20 agents on screen" dark>
           <p className="eyebrow text-kw-gray">Train from {c.city}</p>
           <h2 className="mt-4 text-3xl font-bold md:text-4xl">Train live from {c.city}, or anywhere.</h2>
-          <p className="mt-4 text-lg text-kw-gray-light">Every session is on Zoom. Same classes, same leaders, no drive.</p>
+          <p className="mt-4 text-lg text-kw-gray-light">Most sessions are on Zoom. Same classes, same leaders, no drive.</p>
         </Split>
       )}
       {slug === "pocatello" && (

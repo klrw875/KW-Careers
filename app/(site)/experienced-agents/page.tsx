@@ -8,7 +8,7 @@ import { videos } from "@/content/config";
 
 export const metadata = pageMeta({
   title: "Make Your Move: Experienced Agents",
-  description: "Choose your split, cap and fees with KW MyWay. Cap at $12,000 and keep the rest. Transition concierge, KW Command and leadership that answers the phone.",
+  description: "Choose your split, cap and fees with KW MyWay. Cap at $12,000 and keep the rest. Help with every step of the move, KW Command and leadership that answers the phone.",
   path: "/experienced-agents",
   og: "og-lobby",
 });
@@ -20,7 +20,7 @@ export default function Page() {
       <PageHero
         eyebrow="Experienced agents"
         title="Keep more after a great year. Get your time back."
-        intro="Choose your split, your cap, your fees and your services. Then let leadership, systems and a transition concierge carry the load you’ve been carrying alone."
+        intro="Choose your split, your cap, your fees and your services. Then let leadership, systems and a team that walks you through the move carry the load you’ve been carrying alone."
         image="lobby"
         alt="The Idaho Falls office lobby"
         primary={{ href: "#calculator", label: "See My Take-Home" }}
@@ -52,7 +52,7 @@ export default function Page() {
       </Split>
       <section className="bg-kw-wash py-16 md:py-24">
         <div className="wrap">
-          <SectionHead eyebrow="Transition concierge" title="Switching shouldn’t cost you a month of business." intro="We help you move your listings, signs and database, and get your tech set up in week one, so you keep working while we handle the details." />
+          <SectionHead eyebrow="Making the move" title="Switching shouldn’t cost you a month of business." intro="We help you move your listings, signs and database, and get your tech set up in week one, so you keep working while we handle the details." />
           <div className="mt-8 grid gap-4 md:grid-cols-4">
             {["Listings and pendings plan", "Signs and marketing", "Database import into KW Command", "License transfer paperwork"].map((t) => (
               <div key={t} className="border-t-4 border-kw-red bg-white p-5 font-bold">{t}</div>

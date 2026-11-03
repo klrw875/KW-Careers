@@ -92,7 +92,7 @@ export const valueStack: { group: string; items: { headline: string; meaning: st
     items: [
       { headline: "Ignite and BOLD", meaning: "Proven KW programs that get new agents to closings and get veterans back to lead generation." },
       { headline: "Business Planning Clinic", meaning: "Leave with your year on paper: the numbers, the schedule, the plan." },
-      { headline: "Weekly local trainings", meaning: "In person every week in Idaho Falls and Pocatello, and live on Zoom so agents across East Idaho never miss one." },
+      { headline: "Weekly local trainings", meaning: "In person every week in Idaho Falls and Pocatello, and most classes live on Zoom, so agents across East Idaho can join from anywhere." },
     ],
   },
   {
@@ -130,7 +130,7 @@ export const valueStack: { group: string; items: { headline: string; meaning: st
 
 export const first90: { when: string; title: string; body: string }[] = [
   { when: "Day 1", title: "A confidential conversation", body: "20 minutes with a leader. Your goals, your numbers, your questions. No pressure." },
-  { when: "Week 1", title: "Onboarding and transition concierge", body: "We help move your listings, signs and database, and get your tech set up, so you don’t miss a beat." },
+  { when: "Week 1", title: "Onboarding and transition help", body: "Debbie and the team help you move your listings, signs and database, and get your tech set up, so you don’t miss a beat." },
   { when: "Day 30", title: "Your business plan", body: "Sit down with leadership and write the plan: goals, lead sources, weekly schedule." },
   { when: "Day 90", title: "Your first review", body: "Check the numbers together. Keep what’s working. Fix what isn’t." },
 ];
