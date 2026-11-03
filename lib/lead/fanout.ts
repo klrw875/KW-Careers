@@ -47,8 +47,9 @@ function summary(lead: Lead) {
 
 function sendEmail(to: string, subject: string, text: string, replyTo?: string) {
   const key = env("RESEND_API_KEY");
-  const from = env("LEAD_EMAIL_FROM");
-  if (!key || !from) return undefined;
+  // Sender must be on the domain verified in Resend (careers.kweastidaho.com)
+  const from = env("LEAD_EMAIL_FROM") ?? `${leadOwner.name} <${leadOwner.firstName.toLowerCase()}@careers.kweastidaho.com>`;
+  if (!key) return undefined;
   return fetch("https://api.resend.com/emails", {
     method: "POST",
     headers: { Authorization: `Bearer ${key}`, "Content-Type": "application/json" },
