@@ -2,6 +2,7 @@
 // Reused on persona and city pages.
 import Link from "@/components/SmartLink";
 import { preload } from "react-dom";
+import type { CSSProperties } from "react";
 import { Picture } from "./Picture";
 import {
   CountUp,
@@ -140,8 +141,8 @@ export async function Hero({ variant = "a" }: { variant?: HeroVariant }) {
             width={1482}
             height={836}
             fetchPriority="high"
-            className="absolute inset-0 h-full w-full object-cover"
-            style={{ objectPosition: heroImage.position }}
+            className="absolute inset-0 h-full w-full object-cover [object-position:var(--pos-phone)] lg:[object-position:var(--pos)]"
+            style={{ "--pos": heroImage.position, "--pos-phone": heroImage.phonePosition } as CSSProperties}
           />
         ) : (
           <HeroVideo {...videos.heroLoop} />

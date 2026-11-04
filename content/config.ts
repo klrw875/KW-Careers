@@ -201,9 +201,10 @@ export const leaders = [
 
 // Home hero background still (Steven 2026-11-04): agents together at the Learning Center, to lead with culture.
 // Set to undefined to go back to the office push-in video (videos.heroLoop).
-export const heroImage: { src: string; position: string } | undefined = {
+export const heroImage: { src: string; position: string; phonePosition: string } | undefined = {
   src: "/media/hero-team.webp",
-  position: "68% center", // keeps the group in frame when the copy covers the left side
+  position: "68% center", // desktop: keeps the group in frame when the copy covers the left side
+  phonePosition: "42% center", // phones: centers the white-haired man so he's clearly visible
 };
 
 // ---- Videos. Replace local files with Mux/Cloudflare Stream/YouTube URLs for launch. ----
