@@ -32,7 +32,7 @@ npm run preview              # static click-through preview in ./preview (forms 
 | Tracking | `lib/analytics.ts`, `components/Analytics.tsx`, `docs/event-map.md` |
 | A/B split for the home hero | `proxy.ts` |
 
-Nothing is hard-coded in components. Anything marked `TODO` is a fact leadership still has to supply. While `NEXT_PUBLIC_SHOW_PLACEHOLDERS` is not `false`, the site shows dashed TODO boxes where those things go (agent story videos, leader welcome video, local leaders). Set it to `false` for launch.
+Nothing is hard-coded in components. Anything marked `TODO` is a fact leadership still has to supply. They are hidden by default. Set `NEXT_PUBLIC_SHOW_PLACEHOLDERS=true` to show dashed TODO boxes where those things go (agent story details, leader welcome video, local leaders).
 
 ### How to edit content (no developer needed for most changes)
 
