@@ -1,5 +1,5 @@
 import { PageHero, Split, Checks } from "@/components/PageHero";
-import { SectionHead, CalculatorSection, FaqSection, FinalCta, ProofBar, ValueStack, UpcomingEventsSection, NextLink, StoryFeature, BothWorlds, MeetYourCoaches } from "@/components/sections";
+import { SectionHead, CalculatorSection, FaqSection, FinalCta, ProofBar, ValueStack, UpcomingEventsSection, NextLink, StoryFeature, MeetYourCoaches, InlineAsk } from "@/components/sections";
 import { VideoPlayer } from "@/components/VideoPlayer";
 import { LivingWageSection } from "@/components/LivingWage";
 import { JsonLd, careerSchema, videoSchema } from "@/lib/schema";
@@ -26,7 +26,7 @@ export default function Page() {
         primary={{ href: "/book", label: "Book a Confidential Conversation" }}
         secondary={{ href: "#calculator", label: "See My Take-Home" }}
       />
-      <ProofBar compact />
+      <ProofBar />
       <section className="on-dark bg-black py-16 text-white md:py-24">
         <div className="wrap grid items-center gap-12 lg:grid-cols-[1fr_300px]">
           <div>
@@ -45,6 +45,7 @@ export default function Page() {
         title="“Don’t go to Keller Williams. They take so much of your money.”"
         intro="Rebecca heard it too. Then she looked at the whole picture: what she pays, and what she gets for it. Nine months later, her business has grown sevenfold."
       />
+      <InlineAsk cta="ask_experienced_story" text="Curious what you’d keep here? Talk with Debbie. Your current brokerage won’t hear about it from us." />
       <Split image="trainingFinancial" alt="“A Financially Sound Business” class at the KW Learning Center">
         <p className="eyebrow text-kw-gray-medium">Run it like a business</p>
         <h2 className="mt-4 text-3xl font-bold md:text-4xl">You’re not just an agent. You’re a business owner.</h2>
@@ -60,7 +61,6 @@ export default function Page() {
           </div>
         </div>
       </section>
-      <BothWorlds />
       <MeetYourCoaches persona="experienced" />
       <StoryFeature
         slug="andrew-schneider"
@@ -71,6 +71,7 @@ export default function Page() {
       />
       <LivingWageSection persona="experienced" />
       <CalculatorSection title="Compare your current split to KW MyWay." />
+      <InlineAsk cta="ask_experienced_calc" text="Want Debbie to check these numbers against your real year? 20 minutes, confidential." />
       <ValueStack />
       <UpcomingEventsSection />
       <FaqSection persona="experienced" />

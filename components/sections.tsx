@@ -237,7 +237,7 @@ export function ProofBar({ compact = false }: { compact?: boolean }) {
               <div key={s.label} className="border-t-4 border-black pt-4">
                 <dt className="sr-only">{s.label}</dt>
                 <dd>
-                  <span className="font-display block text-5xl font-bold text-kw-red md:text-6xl">
+                  <span className="font-display block text-5xl font-bold md:text-6xl">
                     <CountUp
                       value={s.value}
                       prefix={s.prefix}
@@ -478,8 +478,8 @@ export function LeadershipVideo() {
               </div>
             ))}
           </div>
-          <NextLink href="#paths" dark>
-            Find the path that fits you
+          <NextLink href="#culture" dark>
+            See what it’s like here
           </NextLink>
         </div>
         <div className="w-full max-w-[300px] justify-self-center">
@@ -678,12 +678,12 @@ export function BothWorlds() {
             ) : (
               <div
                 key="middle"
-                className="order-first bg-kw-red p-6 md:order-2"
+                className="order-first border-t-4 border-kw-red bg-white p-6 text-black md:order-2"
               >
                 <h3 className="text-xs font-bold tracking-[.14em] uppercase">
                   {b.middle.label}
                 </h3>
-                <p className="mt-3 text-white">{b.middle.body}</p>
+                <p className="mt-3">{b.middle.body}</p>
               </div>
             ),
           )}
@@ -985,7 +985,7 @@ export function ProfitShareSection() {
       <div className="wrap grid items-center gap-12 lg:grid-cols-2">
         <div>
           <p className="eyebrow text-kw-gray-medium">Profit share and wealth</p>
-          <p className="font-display mt-5 text-6xl font-bold text-kw-red md:text-7xl">
+          <p className="font-display mt-5 text-6xl font-bold md:text-7xl">
             $<CountUp value={profitShare.amount} />
           </p>
           <h2 className="mt-3 text-3xl leading-tight font-bold md:text-4xl">
@@ -1164,7 +1164,10 @@ export function ProfitShareSection() {
 }
 
 // ---------- 10. Culture ----------
-export function Culture() {
+// compact: home version. Swaps the mission and belief system for Steven's "freedom without isolation"
+// point and Jake Rosen's quote, so culture and positioning read as one section.
+export function Culture({ compact = false }: { compact?: boolean }) {
+  const b = bothWorlds;
   return (
     <section id="culture" className="scroll-mt-20 bg-kw-wash py-16 md:py-24">
       <div className="wrap">
@@ -1236,6 +1239,25 @@ export function Culture() {
             />
           </div>
         </div>
+        {compact ? (
+          <div className="mt-12 grid gap-10 border-t-4 border-black pt-8 lg:grid-cols-[1.2fr_1fr]">
+            <div>
+              <h3 className="text-2xl font-bold md:text-3xl">{b.title}</h3>
+              <p className="mt-4 text-lg">{b.middle.body}</p>
+            </div>
+            {b.quote && (
+              <figure>
+                <blockquote className="border-l-4 border-kw-red pl-5 font-serif text-2xl leading-snug">
+                  “{b.quote.text}”
+                </blockquote>
+                <figcaption className="mt-3 pl-6 text-sm text-kw-gray-medium">{b.quote.name}</figcaption>
+                <Link href="/stories" className="mt-4 ml-6 inline-block text-sm font-bold underline underline-offset-4">
+                  Watch the agent stories
+                </Link>
+              </figure>
+            )}
+          </div>
+        ) : (<>
         <div className="mt-12 grid gap-6 border-t-4 border-black pt-6 md:grid-cols-[1.4fr_1fr]">
           <div>
             <h3 className="text-xs font-bold tracking-[.14em] text-kw-gray-medium uppercase">
@@ -1279,6 +1301,7 @@ export function Culture() {
             ))}
           </ul>
         </div>
+        </>)}
         <NextLink href="#first-90">What your first 90 days look like</NextLink>
       </div>
     </section>

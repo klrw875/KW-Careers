@@ -40,7 +40,7 @@ function Big({
   return (
     <>
       <dt className="sr-only">{label}</dt>
-      <dd className="font-display text-5xl font-bold text-kw-red md:text-6xl">
+      <dd className="font-display text-5xl font-bold md:text-6xl">
         <CountUp value={value} prefix={prefix} suffix={suffix} />
       </dd>
       <dd className="mt-2 font-bold leading-snug md:text-lg">{label}</dd>
