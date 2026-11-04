@@ -86,45 +86,46 @@ export const problemCards: { pain: string; detail: string; answer: string; answe
   },
 ];
 
+// Lead with what only KW East Idaho has (site audit, Nov 2026); the standard KW tools get one line.
 export const valueStack: { group: string; items: { headline: string; meaning: string }[] }[] = [
+  {
+    group: "Coaching",
+    items: [
+      { headline: "Jodi Steo, productivity coach", meaning: "Every new solo agent gets a launch plan, weekly trainings, one-on-ones, and help writing and negotiating offers." },
+      { headline: "Paula Arnold, agent growth coach", meaning: "Weekly one-on-ones on mindset, daily habits and lead generation that feels natural to you." },
+    ],
+  },
+  {
+    group: "Top producers in the room",
+    items: [{ headline: "17 of the market’s top 50", meaning: "They work here and sit at the mastermind table, so you learn what’s working this month from the people doing it." }],
+  },
   {
     group: "Training",
     items: [
-      { headline: "Ignite and BOLD", meaning: "Proven KW programs that get new agents to closings and get veterans back to lead generation." },
+      { headline: "Breakthrough 120, Ignite and BOLD", meaning: "Fundamentals that get new agents into production, and proven KW programs that get veterans back to lead generation." },
       { headline: "Business Planning Clinic", meaning: "Leave with your year on paper: the numbers, the schedule, the plan." },
-      { headline: "Weekly local trainings", meaning: "In person every week in Idaho Falls and Pocatello, and most classes live on Zoom, so agents across East Idaho can join from anywhere." },
+      { headline: "Weekly local trainings", meaning: "In person every week in Idaho Falls and Pocatello, and most classes live on Zoom." },
     ],
   },
   {
     group: "Market intelligence",
-    items: [{ headline: "Know the numbers before your clients ask", meaning: "Monthly Market Pulse meetings break down Bonneville County trends you can share the same day." }],
+    items: [{ headline: "Market Pulse, every month", meaning: "Bonneville County trends broken down so you can share them with clients the same day." }],
   },
   {
-    group: "Technology",
-    items: [
-      { headline: "KW Command", meaning: "One CRM for your contacts, SmartPlans, follow-up and marketing." },
-      { headline: "Consumer app and Canva", meaning: "Your own branded search app for clients, and design tools for listings and social." },
-    ],
+    group: "Leadership that answers",
+    items: [{ headline: "Debbie and the team, down the hall", meaning: "Help moving your listings, signs and database, and someone to call when a deal gets hard." }],
   },
   {
-    group: "Leads and lead generation",
-    items: [{ headline: "Systems, not luck", meaning: "Lead generation plans, scripts and accountability that turn your database into a pipeline." }],
-  },
-  {
-    group: "Mentorship and coaching",
-    items: [{ headline: "Someone in your corner", meaning: "Productivity coaching and mentors who sell in East Idaho every day." }],
+    group: "Technology, with local help",
+    items: [{ headline: "KW Command, the KW app and Canva", meaning: "The tools every KW agent gets, plus a local tech trainer who shows you how to use them." }],
   },
   {
     group: "Profit share and wealth",
     items: [{ headline: "Share in what you help build", meaning: `Agents shared $${profitShare.amount.toLocaleString("en-US")} in profit share, ${profitShare.period}. Not guaranteed; varies by year.` }],
   },
   {
-    group: "Admin and transaction support",
-    items: [{ headline: "Contract to close, covered", meaning: "On the Supported plan, transaction coordinating is included. No extra bill." }],
-  },
-  {
-    group: "Community and events",
-    items: [{ headline: "A team you’re proud of", meaning: "RED Day service, celebrations and masterminds. People who show up for each other." }],
+    group: "Community",
+    items: [{ headline: "A team you’re proud of", meaning: "RED Day with Habitat for Humanity, celebrations and masterminds. People who show up for each other." }],
   },
 ];
 
