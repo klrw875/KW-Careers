@@ -204,7 +204,7 @@ export const leaders = [
 export const heroImage: { src: string; position: string; phonePosition: string } | undefined = {
   src: "/media/hero-team.webp",
   position: "68% center", // desktop: keeps the group in frame when the copy covers the left side
-  phonePosition: "42% center", // phones: centers the white-haired man so he's clearly visible
+  phonePosition: "40% center", // phones/tablets: wide strip centered on Mike Hicks (white hair, beard)
 };
 
 // ---- Videos. Replace local files with Mux/Cloudflare Stream/YouTube URLs for launch. ----
