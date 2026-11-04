@@ -24,7 +24,7 @@ function Pair({ label, kw, others, delay }: { label: string; kw: number; others:
   );
 }
 
-export function LivingWageSection({ persona }: { persona?: Persona }) {
+export function LivingWageSection({ persona, calcHref = "#calculator" }: { persona?: Persona; calcHref?: string }) {
   const usd = (n: number) => `$${n.toLocaleString("en-US")}`;
   const firstYear = (
     <p className={`border-l-4 border-kw-red p-4 ${persona === "new" ? "bg-black text-white" : "bg-kw-wash"}`}>
@@ -60,7 +60,7 @@ export function LivingWageSection({ persona }: { persona?: Persona }) {
             <strong className="text-kw-red">{lw.shareOfAgents}%</strong> of the MLS’s agents, <strong className="text-kw-red">{lw.shareOfSides}%</strong> of its transactions.
           </p>
           {persona !== "new" && <div className="mt-6">{firstYear}</div>}
-          <Link href="#calculator" className="btn btn-red mt-8">Check my number against the living wage</Link>
+          <Link href={calcHref} className="btn btn-red mt-8">Check my number against the living wage</Link>
         </div>
       </div>
       <p className="wrap mt-10 text-xs text-kw-gray-medium">{lw.source}</p>

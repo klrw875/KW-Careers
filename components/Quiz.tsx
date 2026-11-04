@@ -20,7 +20,7 @@ const results: Record<Persona, { headline: string; body: string; next: { href: s
     headline: "Your path: keep more of what you earn, and get your time back.",
     body: "You already know how to sell. The question is what you keep and what you carry alone. With KW MyWay you choose your split, cap and fees. With leadership down the hall, you stop doing everything yourself.",
     next: { href: "/experienced-agents", label: "See what changes when you move" },
-    points: ["12K plan: after cap, it’s yours except small per-deal fees", "Debbie and the team walk you through every step of the move", "The typical KW East Idaho agent closes 75% more"],
+    points: ["12K plan: after cap, it’s yours except small per-deal fees", "Debbie and the team walk you through every step of the move", "The typical KW East Idaho agent closes 50% more"],
   },
   team: {
     headline: "Your path: keep your brand and scale with real support.",
@@ -83,15 +83,15 @@ export function Quiz({ onDone }: { onDone?: () => void }) {
           {persona === "new" ? (
             <div className="bg-black p-5 text-white">
               <p className="font-bold">What happens next</p>
-              <p className="mt-2 text-sm text-kw-gray-light">{leadOwner.firstName} will text you within a few minutes during business hours. Pick a time below, or call {leadOwner.phone}.</p>
+              <p className="mt-2 text-sm text-kw-gray-light">{leadOwner.firstName} will reach out within the hour (8am to 7pm, Mountain), or first thing the next morning. Questions before then? Call or text {leadOwner.phone}.</p>
             </div>
           ) : (
             <VideoPlayer {...videos.skilledAgents} vertical label="Grow with the market" />
           )}
           <div>
-            <h4 className="text-xl font-bold">Book your 20-minute conversation</h4>
-            <p className="mb-4 text-sm text-kw-gray-medium">Confidential. No pressure, no hard sell.</p>
-            <Booking compact />
+            <h4 className="text-xl font-bold">Want to pick a time now?</h4>
+            <p className="mb-4 text-sm text-kw-gray-medium">Optional. {leadOwner.firstName} will reach out either way. 20 minutes, confidential.</p>
+            <Booking compact requestForm={false} />
           </div>
         </div>
         <Link href={r.next.href} className="btn btn-ghost-dark mt-8">{r.next.label} →</Link>
@@ -135,7 +135,7 @@ export function Quiz({ onDone }: { onDone?: () => void }) {
       {phase === "contact" && (
         <div>
           <h3 ref={heading} tabIndex={-1} className="text-2xl font-bold outline-none md:text-3xl">Where should we send your personalized career plan?</h3>
-          <p className="mt-2 mb-5 text-kw-gray-medium">You’ll see your plan on the next screen, and get a copy by text and email.</p>
+          <p className="mt-2 mb-5 text-kw-gray-medium">You’ll see your plan on the next screen, and get a copy by email.</p>
           <LeadForm
             source="quiz"
             submitLabel="Show My Career Plan"

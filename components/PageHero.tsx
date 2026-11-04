@@ -10,7 +10,7 @@ export function PageHero({
   image,
   mobileImage,
   primary = { href: "/book", label: "Book a Confidential Conversation" },
-  secondary = { href: "/quiz", label: "Find My Career Path" },
+  secondary = { href: "/quiz", label: "Take the 60-Second Quiz" },
   alt = "",
 }: {
   eyebrow: string;

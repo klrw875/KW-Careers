@@ -1,5 +1,5 @@
 import { PageHero, Split, Checks } from "@/components/PageHero";
-import { SectionHead, CalculatorSection, FaqSection, FinalCta, ProofBar, UpcomingEventsSection, StoryFeature, AgentStories, NextLink, FeedYourBusiness } from "@/components/sections";
+import { SectionHead, CalculatorSection, FaqSection, FinalCta, ProofBar, UpcomingEventsSection, StoryFeature, AgentStories, NextLink, FeedYourBusiness, InlineAsk } from "@/components/sections";
 import { VideoPlayer } from "@/components/VideoPlayer";
 import { LivingWageSection } from "@/components/LivingWage";
 import { videoSchema } from "@/lib/schema";
@@ -41,8 +41,8 @@ export default function Page() {
         image="trainingSession"
         mobileImage="trainingSessionTall"
         alt="A packed KW Learning Center during “The ABCs of AI” class"
-        primary={{ href: "/quiz", label: "Find My Career Path" }}
-        secondary={{ href: "/book", label: "Talk to Debbie" }}
+        primary={{ href: "/book", label: "Book a Confidential Conversation" }}
+        secondary={{ href: "/quiz", label: "Take the 60-Second Quiz" }}
       />
       <section className="py-16 md:py-24">
         <div className="wrap">
@@ -50,7 +50,7 @@ export default function Page() {
           <ol className="mt-10 grid gap-4 md:grid-cols-5">
             {roadmap.map((r, i) => (
               <li key={r.step} className="border-t-4 border-black pt-4">
-                <p className="font-display text-4xl font-bold text-kw-red">{i + 1}</p>
+                <p className="font-display text-4xl font-bold">{i + 1}</p>
                 <h3 className="mt-2 text-lg font-bold">{r.step}</h3>
                 <p className="mt-1 text-sm text-kw-gray-medium">{r.body}</p>
               </li>
@@ -69,6 +69,8 @@ export default function Page() {
           <NextLink href="#calculator" dark>See your first-year numbers</NextLink>
         </div>
       </section>
+      <AgentStories persona="new" />
+      <InlineAsk cta="ask_new_stories" text="Thinking about getting licensed, or just did? Debbie will walk you through how the first 90 days work. 20 minutes, no pressure." />
       <section className="py-16 md:py-24">
         <div className="wrap">
           <SectionHead eyebrow="Your first 90 days" title="A real plan, week by week." />
@@ -83,8 +85,9 @@ export default function Page() {
           </ol>
         </div>
       </section>
+      <UpcomingEventsSection />
       <FeedYourBusiness />
-      <Split image="zoom" alt="A live Zoom training with about 20 agents on screen" caption="Every session is on Zoom.">
+      <Split image="zoom" alt="A live Zoom training with about 20 agents on screen" caption="Most classes are live on Zoom.">
         <p className="eyebrow text-kw-gray-medium">Train from anywhere</p>
         <h2 className="mt-4 text-3xl font-bold md:text-4xl">Train live from Idaho Falls, Pocatello or anywhere.</h2>
         <p className="mt-4 text-lg text-kw-gray-medium">Most sessions are on Zoom, so the drive or your schedule doesn’t keep you from learning.</p>
@@ -116,10 +119,9 @@ export default function Page() {
         <p className="mt-4 text-lg text-kw-gray-medium">Mentors and mastermind groups where experienced agents share what’s working right now, in this market.</p>
       </Split>
       <ProofBar compact />
-      <AgentStories persona="new" />
       <LivingWageSection persona="new" />
+      <InlineAsk cta="ask_new_living_wage" text="Want a plan built for your first year? Debbie will walk you through it. 20 minutes, confidential." />
       <CalculatorSection newlyLicensed title="See what your first year could look like." />
-      <UpcomingEventsSection />
       <FaqSection persona="new" />
       <FinalCta persona="new" />
     </>

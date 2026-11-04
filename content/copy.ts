@@ -12,12 +12,12 @@ export type HeroVariant = keyof typeof heroVariants;
 // Proof line under every hero headline. Numbers live in config.livingWage; keep the footnote with it.
 export const heroProof = {
   subhead:
-    "From a new agent to the top producers and teams, Keller Williams Realty East Idaho dominates the stats. Come learn the proven ways we systematically do it again and again.",
+    "Weekly training, a coach who knows your numbers, and 203 agents under one roof. In Idaho Falls, Pocatello and on Zoom.",
   lead: "Agents here are",
-  stat: "1.5x more likely",
-  tail: "to succeed.",
+  stat: "1.5x as likely",
+  tail: "to earn a living wage.",
   footnote:
-    "Success here means earning at least a living wage: 34% of KW East Idaho agents vs. 22% everywhere else, counting every agent on each roster, Snake River MLS, 10/2025–9/2026. Earnings modeled from closed sales, not reported income.",
+    "34% of KW East Idaho agents earn at least a living wage vs. 22% everywhere else, counting every agent on each roster, Snake River MLS, 10/2025–9/2026. Earnings modeled from closed sales, not reported income.",
   link: "#living-wage",
 };
 
@@ -46,7 +46,7 @@ export const personaPaths: { id: Persona; href: string; chip: string; title: str
     chip: "I’m an experienced agent",
     title: "Experienced agents",
     outcome: "Keep more after a great year, and get your time back.",
-    proof: "The typical KW East Idaho agent closes 75% more.",
+    proof: "The typical KW East Idaho agent closes 50% more.",
     cta: "Make your move",
     image: "marketPulse",
   },
