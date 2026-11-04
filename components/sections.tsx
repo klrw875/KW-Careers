@@ -2,6 +2,7 @@
 // Reused on persona and city pages.
 import Link from "@/components/SmartLink";
 import { preload } from "react-dom";
+import type { CSSProperties } from "react";
 import { Picture } from "./Picture";
 import {
   CountUp,
@@ -22,6 +23,7 @@ import { FormProof } from "./FormProof";
 import { ProofCharts } from "./ProofCharts";
 import {
   coaches,
+  heroImage,
   franchiseLine,
   leadOwner,
   leaders,
@@ -127,18 +129,41 @@ export async function Hero({ variant = "a" }: { variant?: HeroVariant }) {
   const v = heroVariants[variant];
   const events = await getUpcomingEvents();
   // The poster is the LCP element: tell the browser about it before it parses the hero
-  preload(videos.heroLoop.poster, { as: "image", fetchPriority: "high" });
+  preload(heroImage?.src ?? videos.heroLoop.poster, { as: "image", fetchPriority: "high" });
   return (
     <section className="on-dark relative isolate overflow-hidden bg-black text-white lg:grid lg:min-h-[calc(100svh-5rem)] lg:grid-cols-[1.1fr_.9fr]">
-      {/* Full-bleed background video behind the copy on every screen size. */}
-      <div className="absolute inset-0 -z-10">
-        <HeroVideo {...videos.heroLoop} />
+      {/* Background behind the copy. A team photo is a full-bleed backdrop on desktop and a wide strip
+          above the headline on phones/tablets, so the whole group stays visible; the video is full-bleed everywhere. */}
+      <div
+        className={
+          heroImage
+            ? "absolute inset-x-0 top-0 -z-10 aspect-[4/3] md:aspect-[16/9] lg:inset-0 lg:aspect-auto"
+            : "absolute inset-0 -z-10"
+        }
+      >
+        {heroImage ? (
+          <img
+            src={heroImage.src}
+            alt=""
+            width={1482}
+            height={836}
+            fetchPriority="high"
+            className="absolute inset-0 h-full w-full object-cover [object-position:var(--pos-phone)] lg:[object-position:var(--pos)]"
+            style={{ "--pos": heroImage.position, "--pos-phone": heroImage.phonePosition } as CSSProperties}
+          />
+        ) : (
+          <HeroVideo {...videos.heroLoop} />
+        )}
         <div
-          className="absolute inset-0 bg-black/60 lg:bg-transparent lg:bg-gradient-to-r lg:from-black/90 lg:via-black/60 lg:to-black/5"
+          className={
+            heroImage
+              ? "absolute inset-0 bg-gradient-to-b from-black/10 via-transparent to-black lg:bg-gradient-to-r lg:from-black/90 lg:via-black/60 lg:to-black/5"
+              : "absolute inset-0 bg-black/60 lg:bg-transparent lg:bg-gradient-to-r lg:from-black/90 lg:via-black/60 lg:to-black/5"
+          }
           aria-hidden
         />
       </div>
-      <div className="flex min-h-[calc(100svh-4rem)] flex-col justify-end px-5 pt-24 pb-10 md:px-10 lg:min-h-0 lg:justify-center lg:py-20 lg:pr-16 lg:pl-[max(2rem,calc((100vw-76rem)/2+2rem))]">
+      <div className={`flex flex-col px-5 pb-10 md:px-10 lg:min-h-0 ${heroImage ? "pt-[calc(75vw-1.5rem)] md:pt-[calc(56.25vw-2rem)]" : "min-h-[calc(100svh-4rem)] justify-end pt-24"} lg:justify-center lg:py-20 lg:pr-16 lg:pl-[max(2rem,calc((100vw-76rem)/2+2rem))]`}>
         <div className="mb-6 -mx-5 md:mx-0">
           <EventBanner events={events} />
         </div>

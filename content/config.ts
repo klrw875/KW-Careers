@@ -199,6 +199,14 @@ export const leaders = [
   // TODO: operating principal / MCA and other leaders
 ];
 
+// Home hero background still (Steven 2026-11-04): agents together at the Learning Center, to lead with culture.
+// Set to undefined to go back to the office push-in video (videos.heroLoop).
+export const heroImage: { src: string; position: string; phonePosition: string } | undefined = {
+  src: "/media/hero-team.webp",
+  position: "68% center", // desktop: keeps the group in frame when the copy covers the left side
+  phonePosition: "40% center", // phones/tablets: wide strip centered on Mike Hicks (white hair, beard)
+};
+
 // ---- Videos. Replace local files with Mux/Cloudflare Stream/YouTube URLs for launch. ----
 export const videos = {
   // Home hero background: push-in to the Idaho Falls office at dusk (AI-generated from Steven, 10s).
