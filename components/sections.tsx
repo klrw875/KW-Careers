@@ -22,6 +22,7 @@ import { FormProof } from "./FormProof";
 import { ProofCharts } from "./ProofCharts";
 import {
   coaches,
+  heroImage,
   franchiseLine,
   leadOwner,
   leaders,
@@ -127,12 +128,24 @@ export async function Hero({ variant = "a" }: { variant?: HeroVariant }) {
   const v = heroVariants[variant];
   const events = await getUpcomingEvents();
   // The poster is the LCP element: tell the browser about it before it parses the hero
-  preload(videos.heroLoop.poster, { as: "image", fetchPriority: "high" });
+  preload(heroImage?.src ?? videos.heroLoop.poster, { as: "image", fetchPriority: "high" });
   return (
     <section className="on-dark relative isolate overflow-hidden bg-black text-white lg:grid lg:min-h-[calc(100svh-5rem)] lg:grid-cols-[1.1fr_.9fr]">
       {/* Full-bleed background video behind the copy on every screen size. */}
       <div className="absolute inset-0 -z-10">
-        <HeroVideo {...videos.heroLoop} />
+        {heroImage ? (
+          <img
+            src={heroImage.src}
+            alt=""
+            width={1482}
+            height={836}
+            fetchPriority="high"
+            className="absolute inset-0 h-full w-full object-cover"
+            style={{ objectPosition: heroImage.position }}
+          />
+        ) : (
+          <HeroVideo {...videos.heroLoop} />
+        )}
         <div
           className="absolute inset-0 bg-black/60 lg:bg-transparent lg:bg-gradient-to-r lg:from-black/90 lg:via-black/60 lg:to-black/5"
           aria-hidden
