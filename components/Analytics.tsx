@@ -3,7 +3,9 @@ import Script from "next/script";
 // GA4 (+ Google Ads), Meta Pixel and LinkedIn Insight load only when their IDs are set.
 // Server-side Meta Conversions API: see docs/event-map.md (send Lead with the same event_id).
 export function Analytics() {
-  const ga = process.env.NEXT_PUBLIC_GA4_ID;
+  // KW East Idaho Careers GA4 property (not a secret). Production only, so preview links don't count as visits;
+  // NEXT_PUBLIC_GA4_ID in Vercel overrides it.
+  const ga = process.env.NEXT_PUBLIC_GA4_ID || (process.env.VERCEL_ENV === "production" ? "G-Y6TXZ4YRVV" : undefined);
   const ads = process.env.NEXT_PUBLIC_GOOGLE_ADS_ID;
   const pixel = process.env.NEXT_PUBLIC_META_PIXEL_ID;
   const li = process.env.NEXT_PUBLIC_LINKEDIN_PARTNER_ID;

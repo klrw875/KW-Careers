@@ -18,7 +18,9 @@ export type EventName =
   | "click_to_text"
   | "click_to_call"
   | "exit_offer_view"
-  | "hero_variant";
+  | "hero_variant"
+  | "scroll_depth"
+  | "section_view";
 
 type Params = Record<string, string | number | boolean | undefined>;
 
