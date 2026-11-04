@@ -3,6 +3,7 @@ import { Roboto, EB_Garamond } from "next/font/google";
 import "./globals.css";
 import { site } from "@/content/config";
 import { Analytics } from "@/components/Analytics";
+import { ScrollTracker } from "@/components/ScrollTracker";
 import { ExitOffer, StickyCta } from "@/components/Overlays";
 import { JsonLd, organizationSchema } from "@/lib/schema";
 
@@ -27,6 +28,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
         <StickyCta />
         <ExitOffer />
         <Analytics />
+        <ScrollTracker />
       </body>
     </html>
   );
