@@ -10,7 +10,7 @@ export default function NotFound() {
         <p className="mt-3 text-lg text-kw-gray-medium">Let’s get you where you were going.</p>
         <div className="mt-6 flex flex-wrap gap-3">
           <Link href="/" className="btn btn-red">Home</Link>
-          <Link href="/quiz" className="btn btn-ghost-dark">Find My Career Path</Link>
+          <Link href="/quiz" className="btn btn-ghost-dark">Take the 60-Second Quiz</Link>
         </div>
       </main>
       <Footer />

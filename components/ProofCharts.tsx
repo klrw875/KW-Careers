@@ -194,7 +194,7 @@ export function ProofCharts() {
         <Card
           title={
             <Big
-              value={75}
+              value={Math.round((d.medianSides.kw / d.medianSides.elsewhere - 1) * 100)}
               suffix="%"
               label="more closings for the typical agent"
             />

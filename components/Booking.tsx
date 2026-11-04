@@ -6,7 +6,8 @@ import { LeadForm } from "./LeadForm";
 
 // Inline calendar (Cal.com or Calendly) on our own page. Until Debbie's link exists,
 // a 3-field "request a time" form routes to her like any other lead.
-export function Booking({ compact = false, dark = false }: { compact?: boolean; dark?: boolean }) {
+// requestForm=false hides the "rather have Debbie text you?" form (the final CTA and the quiz result keep one action).
+export function Booking({ compact = false, dark = false, requestForm = true }: { compact?: boolean; dark?: boolean; requestForm?: boolean }) {
   useEffect(() => {
     // Both Cal.com and Calendly post a message to the parent window when a booking completes
     const onMsg = (e: MessageEvent) => {
@@ -35,14 +36,14 @@ export function Booking({ compact = false, dark = false }: { compact?: boolean; 
         <p className={`mt-3 text-sm ${dark ? "text-kw-gray-light" : "text-kw-gray-medium"}`}>
           Opens {leadOwner.firstName}’s booking page in a new tab. {booking.minutes} minutes, confidential.
         </p>
-        <details className="mt-6">
+        {requestForm && <details className="mt-6">
           <summary className={`min-h-11 cursor-pointer py-2 font-bold ${dark ? "text-white" : ""}`}>
             Rather have {leadOwner.firstName} text you?
           </summary>
           <div className="mt-3">
             <LeadForm source="booking-request" submitLabel="Request My Conversation" dark={dark} compact={compact} />
           </div>
-        </details>
+        </details>}
       </div>
     );
 

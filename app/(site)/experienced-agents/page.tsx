@@ -23,8 +23,8 @@ export default function Page() {
         intro="Choose your split, your cap, your fees and your services. Then let leadership, systems and a team that walks you through the move carry the load you’ve been carrying alone."
         image="lobby"
         alt="The Idaho Falls office lobby"
-        primary={{ href: "#calculator", label: "See My Take-Home" }}
-        secondary={{ href: "/book", label: "Book a Confidential Conversation" }}
+        primary={{ href: "/book", label: "Book a Confidential Conversation" }}
+        secondary={{ href: "#calculator", label: "See My Take-Home" }}
       />
       <ProofBar compact />
       <section className="on-dark bg-black py-16 text-white md:py-24">

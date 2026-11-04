@@ -41,8 +41,8 @@ export default function Page() {
         image="trainingSession"
         mobileImage="trainingSessionTall"
         alt="A packed KW Learning Center during “The ABCs of AI” class"
-        primary={{ href: "/quiz", label: "Find My Career Path" }}
-        secondary={{ href: "/book", label: "Talk to Debbie" }}
+        primary={{ href: "/book", label: "Book a Confidential Conversation" }}
+        secondary={{ href: "/quiz", label: "Take the 60-Second Quiz" }}
       />
       <section className="py-16 md:py-24">
         <div className="wrap">

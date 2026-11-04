@@ -89,7 +89,7 @@ export type Stat = { value: number; prefix?: string; suffix?: string; label: str
 export const proofStats: Stat[] = [
   { value: 1, prefix: "#", label: "brokerage in the Snake River MLS", detail: "by agent sales volume", source: mlsSource },
   { value: 822, prefix: "$", suffix: "M", label: "in agent volume", detail: "more than the next two brokerages combined", source: mlsSource },
-  { value: 75, suffix: "%", label: "more closings for the typical agent", detail: "median 7 sides at KW East Idaho vs. 4 elsewhere", source: mlsSource },
+  { value: 50, suffix: "%", label: "more closings for the typical agent", detail: "median 6 sides per producer at KW East Idaho vs. 4 elsewhere", source: mlsSource },
   { value: 17, label: "of the MLS’s top 50 producers", detail: "work at KW East Idaho", source: mlsSource },
 ];
 
@@ -97,8 +97,8 @@ export const proofStats: Stat[] = [
 // Other brokerages are never named on the site: they are shown by rank only.
 export const proofCharts = {
   volumeByRank: [821.6, 398.8, 380.3, 231.3, 98.9], // $M, KW East Idaho first, then #2–#5
-  medianSides: { kw: 7, elsewhere: 4 }, // median closed sides, producing agents
-  medianVolume: { kw: 2.78, elsewhere: 1.59 }, // $M, median producing agent
+  medianSides: { kw: 6, elsewhere: 4 }, // median closed sides per individual producer (final report; raw MLS IDs said 7 because team IDs count as one agent)
+  medianVolume: { kw: 2.5, elsewhere: 1.6 }, // $M, median individual producer (final report)
   top50: { kw: 17, nextBest: 10, total: 50 }, // top 50 producers by volume
 };
 

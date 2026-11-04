@@ -137,7 +137,7 @@ export async function Hero({ variant = "a" }: { variant?: HeroVariant }) {
       <div
         className={
           heroImage
-            ? "absolute inset-x-0 top-0 -z-10 aspect-[4/3] md:aspect-[16/9] lg:inset-0 lg:aspect-auto"
+            ? "absolute inset-x-0 top-0 -z-10 aspect-[16/9] lg:inset-0 lg:aspect-auto"
             : "absolute inset-0 -z-10"
         }
       >
@@ -163,8 +163,8 @@ export async function Hero({ variant = "a" }: { variant?: HeroVariant }) {
           aria-hidden
         />
       </div>
-      <div className={`flex flex-col px-5 pb-10 md:px-10 lg:min-h-0 ${heroImage ? "pt-[calc(75vw-1.5rem)] md:pt-[calc(56.25vw-2rem)]" : "min-h-[calc(100svh-4rem)] justify-end pt-24"} lg:justify-center lg:py-20 lg:pr-16 lg:pl-[max(2rem,calc((100vw-76rem)/2+2rem))]`}>
-        <div className="mb-6 -mx-5 md:mx-0">
+      <div className={`flex flex-col px-5 pb-10 md:px-10 lg:min-h-0 ${heroImage ? "pt-[calc(56.25vw-1rem)] md:pt-[calc(56.25vw-2rem)]" : "min-h-[calc(100svh-4rem)] justify-end pt-24"} lg:justify-center lg:py-20 lg:pr-16 lg:pl-[max(2rem,calc((100vw-76rem)/2+2rem))]`}>
+        <div className="mb-6 hidden lg:block">
           <EventBanner events={events} />
         </div>
         <p className="eyebrow rise text-kw-gray-light">
@@ -181,26 +181,30 @@ export async function Hero({ variant = "a" }: { variant?: HeroVariant }) {
           {heroProof.tail}
           <sup className="ml-0.5 text-base text-kw-gray-light">1</sup>
         </p>
-        <p className="mt-4 max-w-xl text-lg text-kw-gray-light md:text-xl min-h-[3.5em]">
+        <p className="mt-4 hidden max-w-xl text-lg text-kw-gray-light sm:block md:text-xl min-h-[3.5em]">
           {heroProof.subhead}
         </p>
         <div className="mt-7 flex flex-col gap-3 sm:flex-row">
           <TrackedLink
-            href="/quiz"
-            event="cta_click"
-            params={{ cta: "hero_quiz" }}
-            className="btn btn-red text-[17px]"
-          >
-            Find My Career Path
-          </TrackedLink>
-          <TrackedLink
             href="/book"
             event="cta_click"
             params={{ cta: "hero_book" }}
-            className="btn btn-ghost text-white"
+            className="btn btn-red text-[17px]"
           >
             Book a Confidential Conversation
           </TrackedLink>
+          <TrackedLink
+            href="/quiz"
+            event="cta_click"
+            params={{ cta: "hero_quiz" }}
+            className="btn btn-ghost text-white"
+          >
+            Take the 60-Second Quiz
+          </TrackedLink>
+        </div>
+        {/* Phones: the event banner sits under the buttons so the booking button stays on screen one */}
+        <div className="mt-6 -mx-5 md:mx-0 lg:hidden">
+          <EventBanner events={events} />
         </div>
         <div className="mt-6">
           <PersonaChips items={personaPaths} />
@@ -1490,20 +1494,19 @@ export function FinalCta({ persona }: { persona?: Persona }) {
           {leaders[0].bio && (
             <p className="mt-4 max-w-md text-kw-gray-light">{leaders[0].bio}</p>
           )}
-          <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-            <Link href="/quiz" className="btn btn-ghost text-white">
-              Take the Career Fit Quiz
-            </Link>
-            <a href={smsHref} className="btn btn-ghost text-white">
-              Text {leadOwner.firstName}
-            </a>
-          </div>
+
         </div>
         <div className="bg-white p-6 text-black md:p-8">
-          <h3 className="text-2xl font-bold">Book a Conversation</h3>
+          <h3 className="text-2xl font-bold">Book a confidential conversation</h3>
           <div className="mt-4">
-            <Booking compact />
+            <Booking compact requestForm={false} />
           </div>
+          <p className="mt-4 text-sm text-kw-gray-medium">
+            Or text {leadOwner.firstName} at{" "}
+            <a href={smsHref} className="font-bold text-black underline">
+              {leadOwner.phone}
+            </a>
+          </p>
           <div className="mt-6 border-t border-kw-gray-light pt-5">
             <FormProof persona={persona} />
           </div>
@@ -1533,5 +1536,24 @@ export function QuizSection() {
         </div>
       </div>
     </section>
+  );
+}
+
+// ---------- One-line ask between sections, so the booking button shows up every few screens ----------
+export function InlineAsk({ text, cta }: { text: string; cta: string }) {
+  return (
+    <div className="border-y border-kw-gray-light bg-[#f4f4f4]">
+      <div className="wrap flex flex-col gap-4 py-8 md:flex-row md:items-center md:justify-between">
+        <p className="max-w-2xl text-lg font-bold md:text-xl">{text}</p>
+        <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:gap-5">
+          <TrackedLink href="/book" event="cta_click" params={{ cta }} className="btn btn-red shrink-0">
+            Book a Confidential Conversation
+          </TrackedLink>
+          <a href={smsHref} className="text-sm font-medium underline underline-offset-2">
+            or text {leadOwner.firstName}
+          </a>
+        </div>
+      </div>
+    </div>
   );
 }

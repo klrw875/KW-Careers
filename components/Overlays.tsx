@@ -9,14 +9,13 @@ import { LeadForm } from "./LeadForm";
 
 const smsHref = `sms:${leadOwner.phoneE164}?&body=${encodeURIComponent(textUsBody)}`;
 
-/** Mobile sticky CTA bar after 30% scroll. Hidden on /book (already the destination). */
+/** Mobile sticky CTA bar once the visitor scrolls past the first screen. Hidden on /book (already the destination). */
 export function StickyCta() {
   const [show, setShow] = useState(false);
   const path = usePathname();
   useEffect(() => {
     const on = () => {
-      const h = document.documentElement.scrollHeight - innerHeight;
-      setShow(h > 0 && scrollY / h > 0.3);
+      setShow(scrollY > innerHeight * 0.9);
     };
     on();
     addEventListener("scroll", on, { passive: true });
@@ -32,7 +31,7 @@ export function StickyCta() {
         Book a Conversation
       </Link>
       <a href={smsHref} tabIndex={show ? 0 : -1} onClick={() => track("click_to_text", { from: "sticky" })} className="btn btn-ghost min-h-12 text-white">
-        Text Us
+        Text {leadOwner.firstName}
       </a>
     </div>
   );
