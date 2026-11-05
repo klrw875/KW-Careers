@@ -1198,23 +1198,13 @@ export function Culture({ compact = false }: { compact?: boolean }) {
               RED Day 2026 with Habitat for Humanity
             </p>
           </div>
-          <div className="relative overflow-hidden">
-            <Picture
-              k="lobby"
-              alt="The Idaho Falls office lobby"
-              sizes="25vw"
-              fill
-            />
+          <div className="relative row-span-2 overflow-hidden">
+            <LoopVideo {...videos.soupKitchen} />
+            <p className="absolute top-0 left-0 bg-black px-3 py-2 text-xs font-bold text-white">
+              Serving at a local soup kitchen, Nov 2026
+            </p>
           </div>
-          <div className="relative overflow-hidden">
-            <Picture
-              k="mastermind"
-              alt="Agents at a mastermind roundtable"
-              sizes="25vw"
-              fill
-            />
-          </div>
-          <div className="relative overflow-hidden">
+          <div className="relative col-span-2 overflow-hidden md:col-span-1">
             <Picture
               k="trainingFinancial"
               alt="“A Financially Sound Business” class with the Meet, Learn, Grow check-in sign"

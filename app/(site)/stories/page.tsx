@@ -16,7 +16,7 @@ export const metadata = pageMeta({
 export default function Page() {
   return (
     <>
-      <JsonLd data={[videoSchema(videos.skilledAgents), videoSchema(videos.redDay), videoSchema(videos.kwCares), videoSchema(videos.pocatelloEvent), ...stories.filter((s) => s.slug !== "rebecca-running").map(storyVideoSchema)]} />
+      <JsonLd data={[videoSchema(videos.skilledAgents), videoSchema(videos.redDay), videoSchema(videos.kwCares), videoSchema(videos.soupKitchen), videoSchema(videos.pocatelloEvent), ...stories.filter((s) => s.slug !== "rebecca-running").map(storyVideoSchema)]} />
       <div className="on-dark bg-black pt-12 text-white md:pt-16">
         <div className="wrap">
           <p className="eyebrow text-kw-gray">Agent stories</p>
@@ -34,6 +34,10 @@ export default function Page() {
           <div>
             <SectionHead eyebrow="RED Day 2026" title="Our agents with Habitat for Humanity Idaho Falls." intro="Every year on RED Day, Keller Williams agents around the world step away from business to serve their communities. Here’s ours." />
             <div className="mt-8 aspect-[9/16] max-w-[300px]"><LoopVideo {...videos.redDay} /></div>
+          </div>
+          <div>
+            <SectionHead eyebrow="Giving back" title="Serving at a local soup kitchen." intro="Our agents spent a day cooking and serving a meal for neighbors who needed one. Tap the speaker for sound." />
+            <div className="mt-8 aspect-[9/16] max-w-[300px]"><LoopVideo {...videos.soupKitchen} /></div>
           </div>
         </div>
         <div className="wrap mt-16 grid gap-12 md:grid-cols-[1.6fr_1fr]">
