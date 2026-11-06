@@ -36,7 +36,7 @@ export default function Page() {
             <div className="mt-8 aspect-[9/16] max-w-[300px]"><LoopVideo {...videos.redDay} /></div>
           </div>
           <div>
-            <SectionHead eyebrow="Giving back" title="Serving at a local soup kitchen." intro="Our agents spent a day cooking and serving a meal for neighbors who needed one. Tap the speaker for sound." />
+            <SectionHead eyebrow="Giving back" title="Idaho Falls Soup Kitchen." intro="Our agents spent a day cooking and serving a meal for neighbors who needed one. Tap the speaker for sound." />
             <div className="mt-8 aspect-[9/16] max-w-[300px]"><LoopVideo {...videos.soupKitchen} /></div>
           </div>
         </div>

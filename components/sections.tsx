@@ -1201,7 +1201,7 @@ export function Culture({ compact = false }: { compact?: boolean }) {
           <div className="relative row-span-2 overflow-hidden">
             <LoopVideo {...videos.soupKitchen} />
             <p className="absolute top-0 left-0 bg-black px-3 py-2 text-xs font-bold text-white">
-              Serving at a local soup kitchen, Nov 2026
+              Idaho Falls Soup Kitchen, Nov 2026
             </p>
           </div>
           <div className="relative col-span-2 overflow-hidden md:col-span-1">
