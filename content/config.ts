@@ -231,6 +231,15 @@ export const videos = {
     uploadDate: "2026-05-14", // TODO: confirm RED Day 2026 date
     description: "KW East Idaho agents volunteering with Habitat for Humanity Idaho Falls Area on RED Day 2026.",
   },
+  // Steven, 2026-11-05: agents serving at the Idaho Falls Soup Kitchen that day. Music-only montage, no speech; music licensed via Steven's Artlist.io subscription.
+  soupKitchen: {
+    title: "KW East Idaho agents serving at the Idaho Falls Soup Kitchen",
+    src: "/media/soup-kitchen-2026.mp4",
+    poster: "/media/soup-kitchen-poster.webp",
+    duration: "PT2M8S",
+    uploadDate: "2026-11-05",
+    description: "KW East Idaho agents cooking and serving a meal at the Idaho Falls Soup Kitchen, November 2026.",
+  },
   kwCares: {
     title: "KW Cares and Habitat for Humanity",
     src: "/media/kw-cares-habitat.mp4",
