@@ -3,7 +3,8 @@
 // Every integration is optional and skipped when its env vars are missing, so the
 // form keeps working while integrations are being set up.
 import { createHash } from "node:crypto";
-import { leadOwner, leadMagnets, site, marketCenter } from "@/content/config";
+import { leadOwner, leadMagnets, site, marketCenter, type Persona } from "@/content/config";
+import { planQuestions, snapshotLines } from "@/lib/quiz";
 import { events, formatEventDate } from "@/content/events";
 import type { Lead } from "./types";
 
@@ -164,7 +165,7 @@ function autoEmailSubject(lead: Lead) {
   const magnet = magnetFor(lead);
   if (magnet) return `Your copy of ${magnet.title}`;
   if (lead.eventId) return "You're registered";
-  if (lead.source === "quiz") return "Your personalized career plan";
+  if (lead.source === "quiz") return "Your career snapshot";
   return `${lead.firstName ? `${lead.firstName}, ` : ""}thanks for reaching out`;
 }
 
@@ -214,7 +215,24 @@ export function autoEmail(lead: Lead, textSent = false) {
   const calc = lead.calculator && !magnet
     ? `\n\nHere's what you entered:\n${Object.entries(lead.calculator).map(([k, v]) => `• ${k}: ${v}`).join("\n")}\n\nI'll send your full side-by-side breakdown and walk you through it. Illustrative only, not a guarantee of income.`
     : "";
+  if (lead.source === "quiz") return quizEmail(lead);
   return `Hi ${lead.firstName ?? "there"},\n\nThis is ${leadOwner.name}, ${leadOwner.title} at ${site.brokerage}. Thanks for taking a minute with us.${guide}${calc}\n\nThe easiest next step is a confidential, 20-minute conversation. No pressure, no hard sell. Just reply to this email or call or text me at ${leadOwner.phone}.\n\n${leadOwner.name}\n${site.brokerage}\n${marketCenter.street}, ${marketCenter.city}, ID ${marketCenter.zip}\n${leadOwner.phone}`;
+}
+
+/** Quiz follow-up: deliver the snapshot they were promised, then say plainly what the full plan takes. */
+export function quizEmail(lead: Lead) {
+  const persona: Persona = lead.persona === "experienced" || lead.persona === "team" ? lead.persona : "new";
+  const lines = snapshotLines(lead.quiz ?? {});
+  const snapshot = lines.length
+    ? `\n\nYour snapshot:\n\n${lines.map((l) => `${l.said}\n${l.answer}`).join("\n\n")}`
+    : "";
+  return [
+    `Hi ${lead.firstName ?? "there"},`,
+    `This is ${leadOwner.name}, ${leadOwner.title} at ${site.brokerage}. Thanks for taking the Career Fit Quiz.${snapshot}`,
+    `Your personalized plan:\nA plan you can actually follow needs a few more answers than a quiz can ask. In a 20-minute conversation, I'll ask about:\n${planQuestions(persona).map((q) => `• ${q}`).join("\n")}\n\nThen I'll build your plan and give it to you. It's confidential, and there's no pressure to make a move.`,
+    `Reply with a time that works, or call or text me at ${leadOwner.phone}.`,
+    `${leadOwner.name}\n${site.brokerage}\n${marketCenter.street}, ${marketCenter.city}, ID ${marketCenter.zip}\n${leadOwner.phone}`,
+  ].join("\n\n");
 }
 
 function flatten(lead: Lead) {

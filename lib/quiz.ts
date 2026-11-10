@@ -1,5 +1,67 @@
 // Career Fit Quiz: questions, persona routing and lead scoring.
-import type { Persona } from "@/content/config";
+import { profitShare, type Persona } from "@/content/config";
+
+// ---------- Career snapshot ----------
+// What the quiz gives right away. The full personalized plan is built with Debbie in a 20-minute
+// conversation, and the quiz says so before anyone types an email (Steven, 2026-11-10).
+// Every line restates something already on the site; never add a claim here that isn't.
+
+/** Answers to the biggest-frustration question. */
+export const frustrationAnswers: Record<string, { said: string; answer: string }> = {
+  alone: {
+    said: "you’re doing everything alone",
+    answer: "Mastermind groups where producers trade what’s working, and leadership down the hall that answers the phone.",
+  },
+  cost: {
+    said: "you pay too much on splits and fees",
+    answer: "With KW MyWay you choose your split, your cap and your fees. The 12K plan caps at $12,000. After cap, it’s yours except small per-deal fees.",
+  },
+  training: {
+    said: "training stopped after orientation",
+    answer: "Training every week, in person in Idaho Falls and Pocatello, and most classes live on Zoom.",
+  },
+  leads: {
+    said: "you don’t have enough leads or a plan",
+    answer: "Weekly one-on-ones with a coach on daily habits and lead generation that feels natural to you, plus BOLD and Ignite to get you back to lead generation.",
+  },
+  leadership: {
+    said: "you can’t reach your leadership",
+    answer: "Debbie and the team are down the hall, and there’s someone to call when a deal gets hard.",
+  },
+  starting: {
+    said: "you don’t know where to start",
+    answer: "Every new solo agent gets a launch plan from Jodi Steo, our productivity coach, plus weekly trainings and one-on-ones.",
+  },
+};
+
+/** Answers to the next-year goal question. */
+export const goalAnswers: Record<string, { said: string; answer: string }> = {
+  training: { said: "training and a mentor", answer: "Weekly local trainings, and a coach who knows your numbers." },
+  economics: { said: "to keep more of what you earn", answer: "Choose the KW MyWay plan that fits how you sell. The calculator shows your numbers side by side." },
+  leads: { said: "leads and systems", answer: "Breakthrough 120, Ignite and BOLD, plus a monthly Market Pulse you can share with clients the same day." },
+  team: { said: "to build or grow a team", answer: "Keep your team brand, with team member caps of $8,000 (12K) and $9,000 (16K) and real operations support." },
+  culture: { said: "a culture you’re proud of", answer: "RED Day with Habitat for Humanity, celebrations and masterminds. People who show up for each other." },
+  wealth: {
+    said: "to build long-term wealth",
+    answer: `Agents here shared $${profitShare.amount.toLocaleString("en-US")} in profit share, ${profitShare.period}. Not guaranteed; varies by year.`,
+  },
+};
+
+/** The fine-tuning questions the 20-minute conversation covers, so the plan promise is concrete. */
+export function planQuestions(persona: Persona) {
+  return persona === "new"
+    ? ["Your income goal for your first year", "How many hours a week you can give it", "Who you already know who may buy or sell"]
+    : ["Your income goal and what you closed last year", "Where your business comes from today", "How many hours a week you can give it"];
+}
+
+export function snapshotLines(a: Partial<Record<string, string>>) {
+  const f = a.frustration ? frustrationAnswers[a.frustration] : undefined;
+  const g = a.want ? goalAnswers[a.want] : undefined;
+  return [
+    f && { said: `You said ${f.said}.`, answer: f.answer },
+    g && { said: `You want ${g.said}.`, answer: g.answer },
+  ].filter(Boolean) as { said: string; answer: string }[];
+}
 
 export type QuizAnswers = {
   licensed?: "licensed" | "in-class" | "thinking";
