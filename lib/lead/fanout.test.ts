@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { bookingConfirmEmail } from "./fanout";
+import { bookingConfirmEmail, quizEmail } from "./fanout";
 import type { Lead } from "./types";
 
 const lead = (over: Partial<Lead> = {}) =>
@@ -23,5 +23,21 @@ describe("booking confirmation email", () => {
 
   it("says the text already went out once Twilio is live", () => {
     expect(bookingConfirmEmail(lead(), afternoon, true)).toContain("I just sent you a text from (208) 590-7653.");
+  });
+});
+
+describe("quiz email", () => {
+  it("delivers the snapshot from their answers and sets up the plan conversation", () => {
+    const body = quizEmail(lead({ source: "quiz", persona: "experienced", quiz: { frustration: "cost", want: "leads" } }));
+    expect(body).toContain("You said you pay too much on splits and fees.");
+    expect(body).toContain("You want leads and systems.");
+    expect(body).toContain("Where your business comes from today");
+    expect(body).toContain("build your plan and give it to you");
+  });
+
+  it("asks new agents first-year questions", () => {
+    const body = quizEmail(lead({ source: "quiz", persona: "new", quiz: {} }));
+    expect(body).not.toContain("Your snapshot:");
+    expect(body).toContain("Your income goal for your first year");
   });
 });

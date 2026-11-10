@@ -1538,7 +1538,7 @@ export function QuizSection() {
           <SectionHead
             eyebrow="Career Fit Quiz"
             title="Find your path in 60 seconds."
-            intro="Seven quick taps. Get a personalized career plan for where you are right now."
+            intro="Seven quick taps. See your career snapshot right away. Then Debbie builds your full personalized plan with you in a 20-minute conversation."
           />
           <div className="mt-8">
             <FormProof />

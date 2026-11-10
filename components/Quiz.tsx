@@ -1,7 +1,7 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
 import Link from "@/components/SmartLink";
-import { activeSteps, personaFromAnswers, scoreLead, type QuizAnswers } from "@/lib/quiz";
+import { activeSteps, personaFromAnswers, planQuestions, scoreLead, snapshotLines, type QuizAnswers } from "@/lib/quiz";
 import { setPersona } from "@/lib/attribution";
 import { track } from "@/lib/analytics";
 import { LeadForm } from "./LeadForm";
@@ -69,16 +69,36 @@ export function Quiz({ onDone }: { onDone?: () => void }) {
 
   if (phase === "result") {
     const r = results[persona];
+    const snapshot = snapshotLines(answers);
     return (
       <div>
-        <p className="eyebrow text-kw-red">Your personalized career plan</p>
+        <p className="eyebrow text-kw-red">Your career snapshot</p>
         <h3 ref={heading} tabIndex={-1} className="mt-3 text-3xl font-bold outline-none md:text-4xl">{first ? `${first}, ${r.headline[0].toLowerCase()}${r.headline.slice(1)}` : r.headline}</h3>
         <p className="mt-4 max-w-2xl text-lg">{r.body}</p>
-        <ul className="mt-5 grid gap-2">
+        {snapshot.length > 0 && (
+          <dl className="mt-6 grid gap-4">
+            {snapshot.map((s) => (
+              <div key={s.said} className="border-l-4 border-black pl-4">
+                <dt className="font-bold">{s.said}</dt>
+                <dd className="mt-1">{s.answer}</dd>
+              </div>
+            ))}
+          </dl>
+        )}
+        <ul className="mt-6 grid gap-2">
           {r.points.map((p) => (
             <li key={p} className="flex gap-2"><span className="font-bold text-kw-red" aria-hidden>✓</span>{p}</li>
           ))}
         </ul>
+        <div className="mt-8 bg-kw-wash p-5 md:p-6">
+          <h4 className="text-xl font-bold">Next: your personalized plan</h4>
+          <p className="mt-2">This snapshot is the start. A plan you can actually follow needs a few more answers, so {leadOwner.firstName} builds it with you in a 20-minute conversation and gives it to you. She’ll ask about:</p>
+          <ul className="mt-3 grid gap-1">
+            {planQuestions(persona).map((q) => (
+              <li key={q} className="flex gap-2"><span aria-hidden>•</span>{q}</li>
+            ))}
+          </ul>
+        </div>
         <div className="mt-8 grid gap-8 lg:grid-cols-[18rem_1fr]">
           {persona === "new" ? (
             <div className="bg-black p-5 text-white">
@@ -89,7 +109,7 @@ export function Quiz({ onDone }: { onDone?: () => void }) {
             <VideoPlayer {...videos.skilledAgents} vertical label="Grow with the market" />
           )}
           <div>
-            <h4 className="text-xl font-bold">Want to pick a time now?</h4>
+            <h4 className="text-xl font-bold">Pick a time for your plan conversation</h4>
             <p className="mb-4 text-sm text-kw-gray-medium">Optional. {leadOwner.firstName} will reach out either way. 20 minutes, confidential.</p>
             <Booking compact requestForm={false} />
           </div>
@@ -134,11 +154,11 @@ export function Quiz({ onDone }: { onDone?: () => void }) {
 
       {phase === "contact" && (
         <div>
-          <h3 ref={heading} tabIndex={-1} className="text-2xl font-bold outline-none md:text-3xl">Where should we send your personalized career plan?</h3>
-          <p className="mt-2 mb-5 text-kw-gray-medium">You’ll see your plan on the next screen, and get a copy by email.</p>
+          <h3 ref={heading} tabIndex={-1} className="text-2xl font-bold outline-none md:text-3xl">Where should we send your career snapshot?</h3>
+          <p className="mt-2 mb-5 text-kw-gray-medium">You’ll see your snapshot on the next screen and get a copy by email. Want a full personalized plan? {leadOwner.firstName} builds it with you in a 20-minute conversation, because a real plan needs your numbers.</p>
           <LeadForm
             source="quiz"
-            submitLabel="Show My Career Plan"
+            submitLabel="Show My Snapshot"
             compact
             extra={() => ({ quiz: answers as Record<string, string>, persona })}
             onSuccess={(f) => {
