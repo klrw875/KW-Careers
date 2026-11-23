@@ -49,7 +49,7 @@ Open the file on GitHub, click the pencil, change the value, commit. Vercel rede
 
 Edit `content/compensation.ts`. Each plan has `mcSplit`, `mcCap`, `teamMemberCap`, `royaltyRate`, `royaltyCap`, `monthlyFee`, `annualFee`, `transactionFee` (`every` / `afterCap` / `none`), `compliancePerDeal`, `eoPerDeal`, `eoAnnualCap`. Then run `npm test`: the four leadership test cases in `lib/calculator.test.ts` must still pass (update them if leadership changes the plans on purpose).
 
-Math, deal by deal in order: 30% to the market center until cap (partial on the capping deal), 6% royalty until $3,000, per-deal fees; "after cap" transaction fees only on deals that close once cap is already met; monthly × 12 + annual fee. Supported eligibility: newly licensed, or more than 7 transactions in the previous 12 months.
+Math, deal by deal in order: 30% to the market center until cap (partial on the capping deal), 6% royalty until $3,000, per-deal fees; "after cap" transaction fees only on deals that close once cap is already met; monthly × 12 + annual fee. Supported eligibility: newly licensed, or more than 3 closed deals in the previous 12 months.
 
 ## Lead pipeline
 

@@ -64,7 +64,7 @@ export default function Page() {
           <SectionHead dark eyebrow="KW MyWay Supported plan" title="No monthly office bill while you get going." intro="Supported is our “we cover it” plan, built for newly licensed agents." />
           <div className="mt-8 grid gap-6 md:grid-cols-2">
             <Checks dark items={["No monthly office bill", "No E&O charge", "No compliance charge", "Transaction coordinating, contract to close, included", "$500 a year and $250 per deal, on a 70/30 split"]} />
-            <p className="self-end text-kw-gray-light">Eligibility: newly licensed agents and those who did more than 7 transactions in the previous 12 months. Royalty is 6%, capped at $3,000, and resets on your anniversary date.</p>
+            <p className="self-end text-kw-gray-light">Eligibility: newly licensed agents and those who closed more than 3 deals in the previous year. Royalty is 6%, capped at $3,000, and resets on your anniversary date.</p>
           </div>
           <NextLink href="#calculator" dark>See your first-year numbers</NextLink>
         </div>
