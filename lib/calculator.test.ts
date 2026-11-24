@@ -45,14 +45,14 @@ describe("KW MyWay take-home", () => {
 });
 
 describe("eligibility and best plan", () => {
-  it("Supported: newly licensed or MORE than 7 transactions", () => {
+  it("Supported: newly licensed or MORE than 3 closed deals", () => {
     expect(isSupportedEligible(true, 0)).toBe(true);
-    expect(isSupportedEligible(false, 7)).toBe(false);
-    expect(isSupportedEligible(false, 8)).toBe(true);
+    expect(isSupportedEligible(false, 3)).toBe(false);
+    expect(isSupportedEligible(false, 4)).toBe(true);
   });
 
   it("greys out Supported and Commercial when not eligible and picks the best of the rest", () => {
-    const { rows, bestId } = comparePlans({ gci: 30000, deals: 4, newlyLicensed: false, transactionsLast12: 4, sellsCommercial: false });
+    const { rows, bestId } = comparePlans({ gci: 30000, deals: 3, newlyLicensed: false, transactionsLast12: 3, sellsCommercial: false });
     expect(rows.find((r) => r.plan.id === "supported")!.eligible).toBe(false);
     expect(rows.find((r) => r.plan.id === "commercial")!.eligible).toBe(false);
     expect(bestId).toBe("cap12k");

@@ -41,7 +41,7 @@ export const plans: Plan[] = [
     eoPerDeal: 0,
     eoAnnualCap: null,
     included: ["No monthly office bill", "No E&O charge", "No compliance charge", "Transaction coordinating (contract to close) included"],
-    eligibility: "Newly licensed agents and those who did more than 7 transactions in the previous 12 months.",
+    eligibility: "Newly licensed agents and those who closed more than 3 deals in the previous year.",
   },
   {
     id: "cap12k",
@@ -109,4 +109,4 @@ export const compensationRules = [
 export const compensationDisclaimer =
   "Illustrative only, not a guarantee of income. Assumes equal-sized deals over a full year. Final terms per the market center’s current agreement.";
 
-export const supportedMinTransactions = 7; // must be MORE than this in the previous 12 months
+export const supportedMinTransactions = 3; // must be MORE than this in the previous 12 months (Steven, 2026-11-23; was 7)
